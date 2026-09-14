@@ -1,6 +1,7 @@
 namespace Boo.Lang.Parser;
 
 using Antlr4.Runtime;
+using Antlr4.Runtime.Misc;
 using System;
 using System.IO;
 
@@ -40,5 +41,18 @@ public class BooLexerErrorListener : IAntlrErrorListener<int>
 	public void SyntaxError(TextWriter output, IRecognizer recognizer, int offendingSymbol, int line, int charPositionInLine, string msg, RecognitionException e)
 	{
 		this._errorHandler(recognizer, null, this._filename, line, charPositionInLine, msg, e);
+	}
+}
+
+/// <summary>
+/// Gives up at a lexer error, as BailErrorStrategy does at a parser one.
+/// </summary>
+internal sealed class BailLexerErrorListener : IAntlrErrorListener<int>
+{
+	public static readonly BailLexerErrorListener Instance = new();
+
+	public void SyntaxError(TextWriter output, IRecognizer recognizer, int offendingSymbol, int line, int charPositionInLine, string msg, RecognitionException e)
+	{
+		throw new ParseCanceledException(msg, e);
 	}
 }

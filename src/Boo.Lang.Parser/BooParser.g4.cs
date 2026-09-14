@@ -102,8 +102,14 @@ partial class BooParser
 	{
 		var booLexer = new BooLexer(stream) { TokenFactory = BooToken.CreateTokenFactory(tabSize) };
 		// A lexer of its own reports to the console, so an unterminated string
-		// would never reach the compiler.
-		if (eh != null)
+		// would never reach the compiler. The first stage reports nothing, so it
+		// bails at a lexer error too and the second stage reports it.
+		if (firstStage)
+		{
+			booLexer.RemoveErrorListeners();
+			booLexer.AddErrorListener(BailLexerErrorListener.Instance);
+		}
+		else if (eh != null)
 		{
 			booLexer.RemoveErrorListeners();
 			booLexer.AddErrorListener(new BooLexerErrorListener(eh, readerName));
