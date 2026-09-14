@@ -31,211 +31,210 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public abstract partial class TypeDefinition : TypeMember, INodeWithGenericParameters
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public abstract partial class TypeDefinition : TypeMember, INodeWithGenericParameters
+{
+	protected TypeMemberCollection _members;
+
+	protected TypeReferenceCollection _baseTypes;
+
+	protected GenericParameterDeclarationCollection _genericParameters;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public TypeDefinition CloneNode()
 	{
-		protected TypeMemberCollection _members;
+		return (TypeDefinition)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public TypeDefinition CleanClone()
+	{
+		return (TypeDefinition)base.CleanClone();
+	}
 
-		protected TypeReferenceCollection _baseTypes;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( TypeDefinition)node;
+		if (_modifiers != other._modifiers) return NoMatch("TypeDefinition._modifiers");
+		if (_name != other._name) return NoMatch("TypeDefinition._name");
+		if (!Node.AllMatch(_attributes, other._attributes)) return NoMatch("TypeDefinition._attributes");
+		if (!Node.AllMatch(_members, other._members)) return NoMatch("TypeDefinition._members");
+		if (!Node.AllMatch(_baseTypes, other._baseTypes)) return NoMatch("TypeDefinition._baseTypes");
+		if (!Node.AllMatch(_genericParameters, other._genericParameters)) return NoMatch("TypeDefinition._genericParameters");
+		return true;
+	}
 
-		protected GenericParameterDeclarationCollection _genericParameters;
-
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public TypeDefinition CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (TypeDefinition)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public TypeDefinition CleanClone()
-		{
-			return (TypeDefinition)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( TypeDefinition)node;
-			if (_modifiers != other._modifiers) return NoMatch("TypeDefinition._modifiers");
-			if (_name != other._name) return NoMatch("TypeDefinition._name");
-			if (!Node.AllMatch(_attributes, other._attributes)) return NoMatch("TypeDefinition._attributes");
-			if (!Node.AllMatch(_members, other._members)) return NoMatch("TypeDefinition._members");
-			if (!Node.AllMatch(_baseTypes, other._baseTypes)) return NoMatch("TypeDefinition._baseTypes");
-			if (!Node.AllMatch(_genericParameters, other._genericParameters)) return NoMatch("TypeDefinition._genericParameters");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_attributes != null)
 		{
-			if (base.Replace(existing, newNode))
+			Attribute item = existing as Attribute;
+			if (null != item)
 			{
-				return true;
-			}
-			if (_attributes != null)
-			{
-				Attribute item = existing as Attribute;
-				if (null != item)
+				Attribute newItem = (Attribute)newNode;
+				if (_attributes.Replace(item, newItem))
 				{
-					Attribute newItem = (Attribute)newNode;
-					if (_attributes.Replace(item, newItem))
-					{
-						return true;
-					}
+					return true;
 				}
 			}
-			if (_members != null)
-			{
-				TypeMember item = existing as TypeMember;
-				if (null != item)
-				{
-					TypeMember newItem = (TypeMember)newNode;
-					if (_members.Replace(item, newItem))
-					{
-						return true;
-					}
-				}
-			}
-			if (_baseTypes != null)
-			{
-				TypeReference item = existing as TypeReference;
-				if (null != item)
-				{
-					TypeReference newItem = (TypeReference)newNode;
-					if (_baseTypes.Replace(item, newItem))
-					{
-						return true;
-					}
-				}
-			}
-			if (_genericParameters != null)
-			{
-				GenericParameterDeclaration item = existing as GenericParameterDeclaration;
-				if (null != item)
-				{
-					GenericParameterDeclaration newItem = (GenericParameterDeclaration)newNode;
-					if (_genericParameters.Replace(item, newItem))
-					{
-						return true;
-					}
-				}
-			}
-			return false;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
+		if (_members != null)
 		{
-
-			throw new System.InvalidOperationException("Cannot clone abstract class: TypeDefinition");
-
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
-		{
-			_annotations = null;
-			_entity = null;
-			if (null != _attributes)
+			TypeMember item = existing as TypeMember;
+			if (null != item)
 			{
-				_attributes.ClearTypeSystemBindings();
-			}
-			if (null != _members)
-			{
-				_members.ClearTypeSystemBindings();
-			}
-			if (null != _baseTypes)
-			{
-				_baseTypes.ClearTypeSystemBindings();
-			}
-			if (null != _genericParameters)
-			{
-				_genericParameters.ClearTypeSystemBindings();
-			}
-
-		}
-	
-
-		[System.Xml.Serialization.XmlArray]
-		[System.Xml.Serialization.XmlArrayItem(typeof(TypeMember))]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public TypeMemberCollection Members
-		{
-			
-
-			get { return _members ?? (_members = new TypeMemberCollection(this)); }
-			set
-			{
-				if (_members != value)
+				TypeMember newItem = (TypeMember)newNode;
+				if (_members.Replace(item, newItem))
 				{
-					_members = value;
-					if (null != _members)
-					{
-						_members.InitializeParent(this);
-					}
+					return true;
 				}
 			}
-
 		}
-		
-
-		[System.Xml.Serialization.XmlArray]
-		[System.Xml.Serialization.XmlArrayItem(typeof(TypeReference))]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public TypeReferenceCollection BaseTypes
+		if (_baseTypes != null)
 		{
-			
-
-			get { return _baseTypes ?? (_baseTypes = new TypeReferenceCollection(this)); }
-			set
+			TypeReference item = existing as TypeReference;
+			if (null != item)
 			{
-				if (_baseTypes != value)
+				TypeReference newItem = (TypeReference)newNode;
+				if (_baseTypes.Replace(item, newItem))
 				{
-					_baseTypes = value;
-					if (null != _baseTypes)
-					{
-						_baseTypes.InitializeParent(this);
-					}
+					return true;
 				}
 			}
-
 		}
-		
-
-		[System.Xml.Serialization.XmlArray]
-		[System.Xml.Serialization.XmlArrayItem(typeof(GenericParameterDeclaration))]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public GenericParameterDeclarationCollection GenericParameters
+		if (_genericParameters != null)
 		{
-			
-
-			get { return _genericParameters ?? (_genericParameters = new GenericParameterDeclarationCollection(this)); }
-			set
+			GenericParameterDeclaration item = existing as GenericParameterDeclaration;
+			if (null != item)
 			{
-				if (_genericParameters != value)
+				GenericParameterDeclaration newItem = (GenericParameterDeclaration)newNode;
+				if (_genericParameters.Replace(item, newItem))
 				{
-					_genericParameters = value;
-					if (null != _genericParameters)
-					{
-						_genericParameters.InitializeParent(this);
-					}
+					return true;
 				}
 			}
-
 		}
-		
+		return false;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
+
+		throw new System.InvalidOperationException("Cannot clone abstract class: TypeDefinition");
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		if (null != _attributes)
+		{
+			_attributes.ClearTypeSystemBindings();
+		}
+		if (null != _members)
+		{
+			_members.ClearTypeSystemBindings();
+		}
+		if (null != _baseTypes)
+		{
+			_baseTypes.ClearTypeSystemBindings();
+		}
+		if (null != _genericParameters)
+		{
+			_genericParameters.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlArray]
+	[System.Xml.Serialization.XmlArrayItem(typeof(TypeMember))]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public TypeMemberCollection Members
+	{
+		
+
+		get { return _members ?? (_members = new TypeMemberCollection(this)); }
+		set
+		{
+			if (_members != value)
+			{
+				_members = value;
+				if (null != _members)
+				{
+					_members.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlArray]
+	[System.Xml.Serialization.XmlArrayItem(typeof(TypeReference))]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public TypeReferenceCollection BaseTypes
+	{
+		
+
+		get { return _baseTypes ?? (_baseTypes = new TypeReferenceCollection(this)); }
+		set
+		{
+			if (_baseTypes != value)
+			{
+				_baseTypes = value;
+				if (null != _baseTypes)
+				{
+					_baseTypes.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlArray]
+	[System.Xml.Serialization.XmlArrayItem(typeof(GenericParameterDeclaration))]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public GenericParameterDeclarationCollection GenericParameters
+	{
+		
+
+		get { return _genericParameters ?? (_genericParameters = new GenericParameterDeclarationCollection(this)); }
+		set
+		{
+			if (_genericParameters != value)
+			{
+				_genericParameters = value;
+				if (null != _genericParameters)
+				{
+					_genericParameters.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

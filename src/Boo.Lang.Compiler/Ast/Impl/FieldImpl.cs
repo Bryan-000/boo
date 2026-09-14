@@ -31,203 +31,202 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class Field : TypeMember
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class Field : TypeMember
+{
+	protected TypeReference _type;
+
+	protected Expression _initializer;
+
+	protected bool _isVolatile;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public Field CloneNode()
 	{
-		protected TypeReference _type;
+		return (Field)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public Field CleanClone()
+	{
+		return (Field)base.CleanClone();
+	}
 
-		protected Expression _initializer;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.Field; }
+	}
 
-		protected bool _isVolatile;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnField(this);
+	}
 
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( Field)node;
+		if (_modifiers != other._modifiers) return NoMatch("Field._modifiers");
+		if (_name != other._name) return NoMatch("Field._name");
+		if (!Node.AllMatch(_attributes, other._attributes)) return NoMatch("Field._attributes");
+		if (!Node.Matches(_type, other._type)) return NoMatch("Field._type");
+		if (!Node.Matches(_initializer, other._initializer)) return NoMatch("Field._initializer");
+		if (_isVolatile != other._isVolatile) return NoMatch("Field._isVolatile");
+		return true;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public Field CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (Field)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public Field CleanClone()
-		{
-			return (Field)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.Field; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnField(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( Field)node;
-			if (_modifiers != other._modifiers) return NoMatch("Field._modifiers");
-			if (_name != other._name) return NoMatch("Field._name");
-			if (!Node.AllMatch(_attributes, other._attributes)) return NoMatch("Field._attributes");
-			if (!Node.Matches(_type, other._type)) return NoMatch("Field._type");
-			if (!Node.Matches(_initializer, other._initializer)) return NoMatch("Field._initializer");
-			if (_isVolatile != other._isVolatile) return NoMatch("Field._isVolatile");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_attributes != null)
 		{
-			if (base.Replace(existing, newNode))
+			Attribute item = existing as Attribute;
+			if (null != item)
 			{
-				return true;
-			}
-			if (_attributes != null)
-			{
-				Attribute item = existing as Attribute;
-				if (null != item)
+				Attribute newItem = (Attribute)newNode;
+				if (_attributes.Replace(item, newItem))
 				{
-					Attribute newItem = (Attribute)newNode;
-					if (_attributes.Replace(item, newItem))
-					{
-						return true;
-					}
+					return true;
 				}
 			}
-			if (_type == existing)
-			{
-				this.Type = (TypeReference)newNode;
-				return true;
-			}
-			if (_initializer == existing)
-			{
-				this.Initializer = (Expression)newNode;
-				return true;
-			}
-			return false;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
+		if (_type == existing)
 		{
-		
-			Field clone = new Field();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			clone._modifiers = _modifiers;
-			clone._name = _name;
-			if (null != _attributes)
-			{
-				clone._attributes = _attributes.Clone() as AttributeCollection;
-				clone._attributes.InitializeParent(clone);
-			}
-			if (null != _type)
-			{
-				clone._type = _type.Clone() as TypeReference;
-				clone._type.InitializeParent(clone);
-			}
-			if (null != _initializer)
-			{
-				clone._initializer = _initializer.Clone() as Expression;
-				clone._initializer.InitializeParent(clone);
-			}
-			clone._isVolatile = _isVolatile;
-			return clone;
-
-
+			this.Type = (TypeReference)newNode;
+			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
+		if (_initializer == existing)
 		{
-			_annotations = null;
-			_entity = null;
-			if (null != _attributes)
-			{
-				_attributes.ClearTypeSystemBindings();
-			}
-			if (null != _type)
-			{
-				_type.ClearTypeSystemBindings();
-			}
-			if (null != _initializer)
-			{
-				_initializer.ClearTypeSystemBindings();
-			}
-
+			this.Initializer = (Expression)newNode;
+			return true;
 		}
+		return false;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public TypeReference Type
+		Field clone = new Field();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		clone._modifiers = _modifiers;
+		clone._name = _name;
+		if (null != _attributes)
 		{
-			
-			get { return _type; }
-			set
-			{
-				if (_type != value)
-				{
-					_type = value;
-					if (null != _type)
-					{
-						_type.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._attributes = _attributes.Clone() as AttributeCollection;
+			clone._attributes.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Expression Initializer
+		if (null != _type)
 		{
-			
-			get { return _initializer; }
-			set
-			{
-				if (_initializer != value)
-				{
-					_initializer = value;
-					if (null != _initializer)
-					{
-						_initializer.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._type = _type.Clone() as TypeReference;
+			clone._type.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public bool IsVolatile
+		if (null != _initializer)
 		{
-			
-			get { return _isVolatile; }
-			set { _isVolatile = value; }
-
+			clone._initializer = _initializer.Clone() as Expression;
+			clone._initializer.InitializeParent(clone);
 		}
-		
+		clone._isVolatile = _isVolatile;
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		if (null != _attributes)
+		{
+			_attributes.ClearTypeSystemBindings();
+		}
+		if (null != _type)
+		{
+			_type.ClearTypeSystemBindings();
+		}
+		if (null != _initializer)
+		{
+			_initializer.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public TypeReference Type
+	{
+		
+		get { return _type; }
+		set
+		{
+			if (_type != value)
+			{
+				_type = value;
+				if (null != _type)
+				{
+					_type.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Expression Initializer
+	{
+		
+		get { return _initializer; }
+		set
+		{
+			if (_initializer != value)
+			{
+				_initializer = value;
+				if (null != _initializer)
+				{
+					_initializer.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public bool IsVolatile
+	{
+		
+		get { return _isVolatile; }
+		set { _isVolatile = value; }
+
+	}
+	
+
 }
 

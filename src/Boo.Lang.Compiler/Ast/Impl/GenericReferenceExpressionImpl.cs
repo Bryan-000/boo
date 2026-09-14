@@ -31,173 +31,172 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class GenericReferenceExpression : Expression
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class GenericReferenceExpression : Expression
+{
+	protected Expression _target;
+
+	protected TypeReferenceCollection _genericArguments;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public GenericReferenceExpression CloneNode()
 	{
-		protected Expression _target;
+		return (GenericReferenceExpression)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public GenericReferenceExpression CleanClone()
+	{
+		return (GenericReferenceExpression)base.CleanClone();
+	}
 
-		protected TypeReferenceCollection _genericArguments;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.GenericReferenceExpression; }
+	}
 
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnGenericReferenceExpression(this);
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public GenericReferenceExpression CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( GenericReferenceExpression)node;
+		if (!Node.Matches(_target, other._target)) return NoMatch("GenericReferenceExpression._target");
+		if (!Node.AllMatch(_genericArguments, other._genericArguments)) return NoMatch("GenericReferenceExpression._genericArguments");
+		return true;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (GenericReferenceExpression)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public GenericReferenceExpression CleanClone()
-		{
-			return (GenericReferenceExpression)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.GenericReferenceExpression; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnGenericReferenceExpression(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( GenericReferenceExpression)node;
-			if (!Node.Matches(_target, other._target)) return NoMatch("GenericReferenceExpression._target");
-			if (!Node.AllMatch(_genericArguments, other._genericArguments)) return NoMatch("GenericReferenceExpression._genericArguments");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_target == existing)
 		{
-			if (base.Replace(existing, newNode))
+			this.Target = (Expression)newNode;
+			return true;
+		}
+		if (_genericArguments != null)
+		{
+			TypeReference item = existing as TypeReference;
+			if (null != item)
 			{
-				return true;
-			}
-			if (_target == existing)
-			{
-				this.Target = (Expression)newNode;
-				return true;
-			}
-			if (_genericArguments != null)
-			{
-				TypeReference item = existing as TypeReference;
-				if (null != item)
+				TypeReference newItem = (TypeReference)newNode;
+				if (_genericArguments.Replace(item, newItem))
 				{
-					TypeReference newItem = (TypeReference)newNode;
-					if (_genericArguments.Replace(item, newItem))
-					{
-						return true;
-					}
+					return true;
 				}
 			}
-			return false;
 		}
+		return false;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
-		{
-		
-			GenericReferenceExpression clone = new GenericReferenceExpression();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			clone._expressionType = _expressionType;
-			if (null != _target)
-			{
-				clone._target = _target.Clone() as Expression;
-				clone._target.InitializeParent(clone);
-			}
-			if (null != _genericArguments)
-			{
-				clone._genericArguments = _genericArguments.Clone() as TypeReferenceCollection;
-				clone._genericArguments.InitializeParent(clone);
-			}
-			return clone;
-
-
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
-		{
-			_annotations = null;
-			_entity = null;
-			_expressionType = null;
-			if (null != _target)
-			{
-				_target.ClearTypeSystemBindings();
-			}
-			if (null != _genericArguments)
-			{
-				_genericArguments.ClearTypeSystemBindings();
-			}
-
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Expression Target
+		GenericReferenceExpression clone = new GenericReferenceExpression();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		clone._expressionType = _expressionType;
+		if (null != _target)
 		{
-			
-			get { return _target; }
-			set
-			{
-				if (_target != value)
-				{
-					_target = value;
-					if (null != _target)
-					{
-						_target.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._target = _target.Clone() as Expression;
+			clone._target.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlArray]
-		[System.Xml.Serialization.XmlArrayItem(typeof(TypeReference))]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public TypeReferenceCollection GenericArguments
+		if (null != _genericArguments)
 		{
-			
-
-			get { return _genericArguments ?? (_genericArguments = new TypeReferenceCollection(this)); }
-			set
-			{
-				if (_genericArguments != value)
-				{
-					_genericArguments = value;
-					if (null != _genericArguments)
-					{
-						_genericArguments.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._genericArguments = _genericArguments.Clone() as TypeReferenceCollection;
+			clone._genericArguments.InitializeParent(clone);
 		}
-		
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		_expressionType = null;
+		if (null != _target)
+		{
+			_target.ClearTypeSystemBindings();
+		}
+		if (null != _genericArguments)
+		{
+			_genericArguments.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Expression Target
+	{
+		
+		get { return _target; }
+		set
+		{
+			if (_target != value)
+			{
+				_target = value;
+				if (null != _target)
+				{
+					_target.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlArray]
+	[System.Xml.Serialization.XmlArrayItem(typeof(TypeReference))]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public TypeReferenceCollection GenericArguments
+	{
+		
+
+		get { return _genericArguments ?? (_genericArguments = new TypeReferenceCollection(this)); }
+		set
+		{
+			if (_genericArguments != value)
+			{
+				_genericArguments = value;
+				if (null != _genericArguments)
+				{
+					_genericArguments.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

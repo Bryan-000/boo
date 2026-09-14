@@ -31,200 +31,199 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class Import : Node
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class Import : Node
+{
+	protected Expression _expression;
+
+	protected ReferenceExpression _assemblyReference;
+
+	protected ReferenceExpression _alias;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public Import CloneNode()
 	{
-		protected Expression _expression;
+		return (Import)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public Import CleanClone()
+	{
+		return (Import)base.CleanClone();
+	}
 
-		protected ReferenceExpression _assemblyReference;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.Import; }
+	}
 
-		protected ReferenceExpression _alias;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnImport(this);
+	}
 
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( Import)node;
+		if (!Node.Matches(_expression, other._expression)) return NoMatch("Import._expression");
+		if (!Node.Matches(_assemblyReference, other._assemblyReference)) return NoMatch("Import._assemblyReference");
+		if (!Node.Matches(_alias, other._alias)) return NoMatch("Import._alias");
+		return true;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public Import CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (Import)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public Import CleanClone()
-		{
-			return (Import)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.Import; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnImport(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( Import)node;
-			if (!Node.Matches(_expression, other._expression)) return NoMatch("Import._expression");
-			if (!Node.Matches(_assemblyReference, other._assemblyReference)) return NoMatch("Import._assemblyReference");
-			if (!Node.Matches(_alias, other._alias)) return NoMatch("Import._alias");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_expression == existing)
 		{
-			if (base.Replace(existing, newNode))
-			{
-				return true;
-			}
-			if (_expression == existing)
-			{
-				this.Expression = (Expression)newNode;
-				return true;
-			}
-			if (_assemblyReference == existing)
-			{
-				this.AssemblyReference = (ReferenceExpression)newNode;
-				return true;
-			}
-			if (_alias == existing)
-			{
-				this.Alias = (ReferenceExpression)newNode;
-				return true;
-			}
-			return false;
+			this.Expression = (Expression)newNode;
+			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
+		if (_assemblyReference == existing)
 		{
-		
-			Import clone = new Import();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			if (null != _expression)
-			{
-				clone._expression = _expression.Clone() as Expression;
-				clone._expression.InitializeParent(clone);
-			}
-			if (null != _assemblyReference)
-			{
-				clone._assemblyReference = _assemblyReference.Clone() as ReferenceExpression;
-				clone._assemblyReference.InitializeParent(clone);
-			}
-			if (null != _alias)
-			{
-				clone._alias = _alias.Clone() as ReferenceExpression;
-				clone._alias.InitializeParent(clone);
-			}
-			return clone;
-
-
+			this.AssemblyReference = (ReferenceExpression)newNode;
+			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
+		if (_alias == existing)
 		{
-			_annotations = null;
-			_entity = null;
-			if (null != _expression)
-			{
-				_expression.ClearTypeSystemBindings();
-			}
-			if (null != _assemblyReference)
-			{
-				_assemblyReference.ClearTypeSystemBindings();
-			}
-			if (null != _alias)
-			{
-				_alias.ClearTypeSystemBindings();
-			}
-
+			this.Alias = (ReferenceExpression)newNode;
+			return true;
 		}
+		return false;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Expression Expression
+		Import clone = new Import();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		if (null != _expression)
 		{
-			
-			get { return _expression; }
-			set
-			{
-				if (_expression != value)
-				{
-					_expression = value;
-					if (null != _expression)
-					{
-						_expression.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._expression = _expression.Clone() as Expression;
+			clone._expression.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public ReferenceExpression AssemblyReference
+		if (null != _assemblyReference)
 		{
-			
-			get { return _assemblyReference; }
-			set
-			{
-				if (_assemblyReference != value)
-				{
-					_assemblyReference = value;
-					if (null != _assemblyReference)
-					{
-						_assemblyReference.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._assemblyReference = _assemblyReference.Clone() as ReferenceExpression;
+			clone._assemblyReference.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public ReferenceExpression Alias
+		if (null != _alias)
 		{
-			
-			get { return _alias; }
-			set
-			{
-				if (_alias != value)
-				{
-					_alias = value;
-					if (null != _alias)
-					{
-						_alias.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._alias = _alias.Clone() as ReferenceExpression;
+			clone._alias.InitializeParent(clone);
 		}
-		
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		if (null != _expression)
+		{
+			_expression.ClearTypeSystemBindings();
+		}
+		if (null != _assemblyReference)
+		{
+			_assemblyReference.ClearTypeSystemBindings();
+		}
+		if (null != _alias)
+		{
+			_alias.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Expression Expression
+	{
+		
+		get { return _expression; }
+		set
+		{
+			if (_expression != value)
+			{
+				_expression = value;
+				if (null != _expression)
+				{
+					_expression.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public ReferenceExpression AssemblyReference
+	{
+		
+		get { return _assemblyReference; }
+		set
+		{
+			if (_assemblyReference != value)
+			{
+				_assemblyReference = value;
+				if (null != _assemblyReference)
+				{
+					_assemblyReference.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public ReferenceExpression Alias
+	{
+		
+		get { return _alias; }
+		set
+		{
+			if (_alias != value)
+			{
+				_alias = value;
+				if (null != _alias)
+				{
+					_alias.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

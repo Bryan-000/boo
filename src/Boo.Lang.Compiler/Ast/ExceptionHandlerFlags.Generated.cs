@@ -32,17 +32,16 @@
 // This file was generated automatically by astgen.boo.
 //
 
-namespace Boo.Lang.Compiler.Ast
-{
-	using System;
+namespace Boo.Lang.Compiler.Ast;
 
-	[Serializable]
-	[Flags]
-	public enum ExceptionHandlerFlags
-	{
-		None = 0,
-		Anonymous = 1,
-		Untyped = 2,
-		Filter = 4
-	}
+using System;
+
+[Serializable]
+[Flags]
+public enum ExceptionHandlerFlags
+{
+	None = 0,
+	Anonymous = 1,
+	Untyped = 2,
+	Filter = 4
 }

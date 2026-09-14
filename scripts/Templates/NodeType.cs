@@ -1,20 +1,19 @@
 ${header}
-namespace Boo.Lang.Compiler.Ast
+namespace Boo.Lang.Compiler.Ast;
+
+using System;
+
+[Serializable]
+public enum NodeType
 {
-	using System;
-	
-	[Serializable]
-	public enum NodeType
-	{
 <%
 nodes = array(model.GetConcreteAstNodes())
 last = nodes[-1]
 separator = ","
 for item in nodes:	
 	separator = "" if item is last
-%>		${item.Name}${separator}
+%>	${item.Name}${separator}
 <%
 end
-%>	}
-}
+%>}
 

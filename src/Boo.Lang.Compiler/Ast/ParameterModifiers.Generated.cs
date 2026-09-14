@@ -32,15 +32,14 @@
 // This file was generated automatically by astgen.boo.
 //
 
-namespace Boo.Lang.Compiler.Ast
-{
-	using System;
+namespace Boo.Lang.Compiler.Ast;
 
-	[Serializable]
-	public enum ParameterModifiers
-	{
-		None = 0,
-		Val = 0,
-		Ref = 1
-	}
+using System;
+
+[Serializable]
+public enum ParameterModifiers
+{
+	None = 0,
+	Val = 0,
+	Ref = 1
 }

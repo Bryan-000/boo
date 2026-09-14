@@ -31,178 +31,177 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class EnumDefinition : TypeDefinition
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class EnumDefinition : TypeDefinition
+{
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public EnumDefinition CloneNode()
 	{
+		return (EnumDefinition)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public EnumDefinition CleanClone()
+	{
+		return (EnumDefinition)base.CleanClone();
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public EnumDefinition CloneNode()
-		{
-			return (EnumDefinition)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public EnumDefinition CleanClone()
-		{
-			return (EnumDefinition)base.CleanClone();
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.EnumDefinition; }
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.EnumDefinition; }
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnEnumDefinition(this);
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnEnumDefinition(this);
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( EnumDefinition)node;
+		if (_modifiers != other._modifiers) return NoMatch("EnumDefinition._modifiers");
+		if (_name != other._name) return NoMatch("EnumDefinition._name");
+		if (!Node.AllMatch(_attributes, other._attributes)) return NoMatch("EnumDefinition._attributes");
+		if (!Node.AllMatch(_members, other._members)) return NoMatch("EnumDefinition._members");
+		if (!Node.AllMatch(_baseTypes, other._baseTypes)) return NoMatch("EnumDefinition._baseTypes");
+		if (!Node.AllMatch(_genericParameters, other._genericParameters)) return NoMatch("EnumDefinition._genericParameters");
+		return true;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( EnumDefinition)node;
-			if (_modifiers != other._modifiers) return NoMatch("EnumDefinition._modifiers");
-			if (_name != other._name) return NoMatch("EnumDefinition._name");
-			if (!Node.AllMatch(_attributes, other._attributes)) return NoMatch("EnumDefinition._attributes");
-			if (!Node.AllMatch(_members, other._members)) return NoMatch("EnumDefinition._members");
-			if (!Node.AllMatch(_baseTypes, other._baseTypes)) return NoMatch("EnumDefinition._baseTypes");
-			if (!Node.AllMatch(_genericParameters, other._genericParameters)) return NoMatch("EnumDefinition._genericParameters");
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
+		{
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_attributes != null)
 		{
-			if (base.Replace(existing, newNode))
+			Attribute item = existing as Attribute;
+			if (null != item)
 			{
-				return true;
-			}
-			if (_attributes != null)
-			{
-				Attribute item = existing as Attribute;
-				if (null != item)
+				Attribute newItem = (Attribute)newNode;
+				if (_attributes.Replace(item, newItem))
 				{
-					Attribute newItem = (Attribute)newNode;
-					if (_attributes.Replace(item, newItem))
-					{
-						return true;
-					}
+					return true;
 				}
 			}
-			if (_members != null)
-			{
-				TypeMember item = existing as TypeMember;
-				if (null != item)
-				{
-					TypeMember newItem = (TypeMember)newNode;
-					if (_members.Replace(item, newItem))
-					{
-						return true;
-					}
-				}
-			}
-			if (_baseTypes != null)
-			{
-				TypeReference item = existing as TypeReference;
-				if (null != item)
-				{
-					TypeReference newItem = (TypeReference)newNode;
-					if (_baseTypes.Replace(item, newItem))
-					{
-						return true;
-					}
-				}
-			}
-			if (_genericParameters != null)
-			{
-				GenericParameterDeclaration item = existing as GenericParameterDeclaration;
-				if (null != item)
-				{
-					GenericParameterDeclaration newItem = (GenericParameterDeclaration)newNode;
-					if (_genericParameters.Replace(item, newItem))
-					{
-						return true;
-					}
-				}
-			}
-			return false;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
+		if (_members != null)
 		{
-		
-			EnumDefinition clone = new EnumDefinition();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			clone._modifiers = _modifiers;
-			clone._name = _name;
-			if (null != _attributes)
+			TypeMember item = existing as TypeMember;
+			if (null != item)
 			{
-				clone._attributes = _attributes.Clone() as AttributeCollection;
-				clone._attributes.InitializeParent(clone);
+				TypeMember newItem = (TypeMember)newNode;
+				if (_members.Replace(item, newItem))
+				{
+					return true;
+				}
 			}
-			if (null != _members)
-			{
-				clone._members = _members.Clone() as TypeMemberCollection;
-				clone._members.InitializeParent(clone);
-			}
-			if (null != _baseTypes)
-			{
-				clone._baseTypes = _baseTypes.Clone() as TypeReferenceCollection;
-				clone._baseTypes.InitializeParent(clone);
-			}
-			if (null != _genericParameters)
-			{
-				clone._genericParameters = _genericParameters.Clone() as GenericParameterDeclarationCollection;
-				clone._genericParameters.InitializeParent(clone);
-			}
-			return clone;
-
-
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
+		if (_baseTypes != null)
 		{
-			_annotations = null;
-			_entity = null;
-			if (null != _attributes)
+			TypeReference item = existing as TypeReference;
+			if (null != item)
 			{
-				_attributes.ClearTypeSystemBindings();
+				TypeReference newItem = (TypeReference)newNode;
+				if (_baseTypes.Replace(item, newItem))
+				{
+					return true;
+				}
 			}
-			if (null != _members)
-			{
-				_members.ClearTypeSystemBindings();
-			}
-			if (null != _baseTypes)
-			{
-				_baseTypes.ClearTypeSystemBindings();
-			}
-			if (null != _genericParameters)
-			{
-				_genericParameters.ClearTypeSystemBindings();
-			}
-
 		}
+		if (_genericParameters != null)
+		{
+			GenericParameterDeclaration item = existing as GenericParameterDeclaration;
+			if (null != item)
+			{
+				GenericParameterDeclaration newItem = (GenericParameterDeclaration)newNode;
+				if (_genericParameters.Replace(item, newItem))
+				{
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
+		EnumDefinition clone = new EnumDefinition();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		clone._modifiers = _modifiers;
+		clone._name = _name;
+		if (null != _attributes)
+		{
+			clone._attributes = _attributes.Clone() as AttributeCollection;
+			clone._attributes.InitializeParent(clone);
+		}
+		if (null != _members)
+		{
+			clone._members = _members.Clone() as TypeMemberCollection;
+			clone._members.InitializeParent(clone);
+		}
+		if (null != _baseTypes)
+		{
+			clone._baseTypes = _baseTypes.Clone() as TypeReferenceCollection;
+			clone._baseTypes.InitializeParent(clone);
+		}
+		if (null != _genericParameters)
+		{
+			clone._genericParameters = _genericParameters.Clone() as GenericParameterDeclarationCollection;
+			clone._genericParameters.InitializeParent(clone);
+		}
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		if (null != _attributes)
+		{
+			_attributes.ClearTypeSystemBindings();
+		}
+		if (null != _members)
+		{
+			_members.ClearTypeSystemBindings();
+		}
+		if (null != _baseTypes)
+		{
+			_baseTypes.ClearTypeSystemBindings();
+		}
+		if (null != _genericParameters)
+		{
+			_genericParameters.ClearTypeSystemBindings();
+		}
+
+	}
+
+
 }
 

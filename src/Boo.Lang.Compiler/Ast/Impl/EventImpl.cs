@@ -31,264 +31,263 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class Event : TypeMember
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class Event : TypeMember
+{
+	protected Method _add;
+
+	protected Method _remove;
+
+	protected Method _raise;
+
+	protected TypeReference _type;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public Event CloneNode()
 	{
-		protected Method _add;
+		return (Event)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public Event CleanClone()
+	{
+		return (Event)base.CleanClone();
+	}
 
-		protected Method _remove;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.Event; }
+	}
 
-		protected Method _raise;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnEvent(this);
+	}
 
-		protected TypeReference _type;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( Event)node;
+		if (_modifiers != other._modifiers) return NoMatch("Event._modifiers");
+		if (_name != other._name) return NoMatch("Event._name");
+		if (!Node.AllMatch(_attributes, other._attributes)) return NoMatch("Event._attributes");
+		if (!Node.Matches(_add, other._add)) return NoMatch("Event._add");
+		if (!Node.Matches(_remove, other._remove)) return NoMatch("Event._remove");
+		if (!Node.Matches(_raise, other._raise)) return NoMatch("Event._raise");
+		if (!Node.Matches(_type, other._type)) return NoMatch("Event._type");
+		return true;
+	}
 
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public Event CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (Event)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public Event CleanClone()
-		{
-			return (Event)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.Event; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnEvent(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( Event)node;
-			if (_modifiers != other._modifiers) return NoMatch("Event._modifiers");
-			if (_name != other._name) return NoMatch("Event._name");
-			if (!Node.AllMatch(_attributes, other._attributes)) return NoMatch("Event._attributes");
-			if (!Node.Matches(_add, other._add)) return NoMatch("Event._add");
-			if (!Node.Matches(_remove, other._remove)) return NoMatch("Event._remove");
-			if (!Node.Matches(_raise, other._raise)) return NoMatch("Event._raise");
-			if (!Node.Matches(_type, other._type)) return NoMatch("Event._type");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_attributes != null)
 		{
-			if (base.Replace(existing, newNode))
+			Attribute item = existing as Attribute;
+			if (null != item)
 			{
-				return true;
-			}
-			if (_attributes != null)
-			{
-				Attribute item = existing as Attribute;
-				if (null != item)
+				Attribute newItem = (Attribute)newNode;
+				if (_attributes.Replace(item, newItem))
 				{
-					Attribute newItem = (Attribute)newNode;
-					if (_attributes.Replace(item, newItem))
-					{
-						return true;
-					}
+					return true;
 				}
 			}
-			if (_add == existing)
-			{
-				this.Add = (Method)newNode;
-				return true;
-			}
-			if (_remove == existing)
-			{
-				this.Remove = (Method)newNode;
-				return true;
-			}
-			if (_raise == existing)
-			{
-				this.Raise = (Method)newNode;
-				return true;
-			}
-			if (_type == existing)
-			{
-				this.Type = (TypeReference)newNode;
-				return true;
-			}
-			return false;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
+		if (_add == existing)
 		{
-		
-			Event clone = new Event();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			clone._modifiers = _modifiers;
-			clone._name = _name;
-			if (null != _attributes)
-			{
-				clone._attributes = _attributes.Clone() as AttributeCollection;
-				clone._attributes.InitializeParent(clone);
-			}
-			if (null != _add)
-			{
-				clone._add = _add.Clone() as Method;
-				clone._add.InitializeParent(clone);
-			}
-			if (null != _remove)
-			{
-				clone._remove = _remove.Clone() as Method;
-				clone._remove.InitializeParent(clone);
-			}
-			if (null != _raise)
-			{
-				clone._raise = _raise.Clone() as Method;
-				clone._raise.InitializeParent(clone);
-			}
-			if (null != _type)
-			{
-				clone._type = _type.Clone() as TypeReference;
-				clone._type.InitializeParent(clone);
-			}
-			return clone;
-
-
+			this.Add = (Method)newNode;
+			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
+		if (_remove == existing)
 		{
-			_annotations = null;
-			_entity = null;
-			if (null != _attributes)
-			{
-				_attributes.ClearTypeSystemBindings();
-			}
-			if (null != _add)
-			{
-				_add.ClearTypeSystemBindings();
-			}
-			if (null != _remove)
-			{
-				_remove.ClearTypeSystemBindings();
-			}
-			if (null != _raise)
-			{
-				_raise.ClearTypeSystemBindings();
-			}
-			if (null != _type)
-			{
-				_type.ClearTypeSystemBindings();
-			}
-
+			this.Remove = (Method)newNode;
+			return true;
 		}
+		if (_raise == existing)
+		{
+			this.Raise = (Method)newNode;
+			return true;
+		}
+		if (_type == existing)
+		{
+			this.Type = (TypeReference)newNode;
+			return true;
+		}
+		return false;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Method Add
+		Event clone = new Event();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		clone._modifiers = _modifiers;
+		clone._name = _name;
+		if (null != _attributes)
 		{
-			
-			get { return _add; }
-			set
-			{
-				if (_add != value)
-				{
-					_add = value;
-					if (null != _add)
-					{
-						_add.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._attributes = _attributes.Clone() as AttributeCollection;
+			clone._attributes.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Method Remove
+		if (null != _add)
 		{
-			
-			get { return _remove; }
-			set
-			{
-				if (_remove != value)
-				{
-					_remove = value;
-					if (null != _remove)
-					{
-						_remove.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._add = _add.Clone() as Method;
+			clone._add.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Method Raise
+		if (null != _remove)
 		{
-			
-			get { return _raise; }
-			set
-			{
-				if (_raise != value)
-				{
-					_raise = value;
-					if (null != _raise)
-					{
-						_raise.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._remove = _remove.Clone() as Method;
+			clone._remove.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public TypeReference Type
+		if (null != _raise)
 		{
-			
-			get { return _type; }
-			set
-			{
-				if (_type != value)
-				{
-					_type = value;
-					if (null != _type)
-					{
-						_type.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._raise = _raise.Clone() as Method;
+			clone._raise.InitializeParent(clone);
 		}
-		
+		if (null != _type)
+		{
+			clone._type = _type.Clone() as TypeReference;
+			clone._type.InitializeParent(clone);
+		}
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		if (null != _attributes)
+		{
+			_attributes.ClearTypeSystemBindings();
+		}
+		if (null != _add)
+		{
+			_add.ClearTypeSystemBindings();
+		}
+		if (null != _remove)
+		{
+			_remove.ClearTypeSystemBindings();
+		}
+		if (null != _raise)
+		{
+			_raise.ClearTypeSystemBindings();
+		}
+		if (null != _type)
+		{
+			_type.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Method Add
+	{
+		
+		get { return _add; }
+		set
+		{
+			if (_add != value)
+			{
+				_add = value;
+				if (null != _add)
+				{
+					_add.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Method Remove
+	{
+		
+		get { return _remove; }
+		set
+		{
+			if (_remove != value)
+			{
+				_remove = value;
+				if (null != _remove)
+				{
+					_remove.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Method Raise
+	{
+		
+		get { return _raise; }
+		set
+		{
+			if (_raise != value)
+			{
+				_raise = value;
+				if (null != _raise)
+				{
+					_raise.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public TypeReference Type
+	{
+		
+		get { return _type; }
+		set
+		{
+			if (_type != value)
+			{
+				_type = value;
+				if (null != _type)
+				{
+					_type.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

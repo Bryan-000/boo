@@ -31,223 +31,222 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class ExceptionHandler : Node
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class ExceptionHandler : Node
+{
+	protected Declaration _declaration;
+
+	protected Expression _filterCondition;
+
+	protected ExceptionHandlerFlags _flags;
+
+	protected Block _block;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public ExceptionHandler CloneNode()
 	{
-		protected Declaration _declaration;
+		return (ExceptionHandler)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public ExceptionHandler CleanClone()
+	{
+		return (ExceptionHandler)base.CleanClone();
+	}
 
-		protected Expression _filterCondition;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.ExceptionHandler; }
+	}
 
-		protected ExceptionHandlerFlags _flags;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnExceptionHandler(this);
+	}
 
-		protected Block _block;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( ExceptionHandler)node;
+		if (!Node.Matches(_declaration, other._declaration)) return NoMatch("ExceptionHandler._declaration");
+		if (!Node.Matches(_filterCondition, other._filterCondition)) return NoMatch("ExceptionHandler._filterCondition");
+		if (_flags != other._flags) return NoMatch("ExceptionHandler._flags");
+		if (!Node.Matches(_block, other._block)) return NoMatch("ExceptionHandler._block");
+		return true;
+	}
 
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public ExceptionHandler CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (ExceptionHandler)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public ExceptionHandler CleanClone()
-		{
-			return (ExceptionHandler)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.ExceptionHandler; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnExceptionHandler(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( ExceptionHandler)node;
-			if (!Node.Matches(_declaration, other._declaration)) return NoMatch("ExceptionHandler._declaration");
-			if (!Node.Matches(_filterCondition, other._filterCondition)) return NoMatch("ExceptionHandler._filterCondition");
-			if (_flags != other._flags) return NoMatch("ExceptionHandler._flags");
-			if (!Node.Matches(_block, other._block)) return NoMatch("ExceptionHandler._block");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_declaration == existing)
 		{
-			if (base.Replace(existing, newNode))
-			{
-				return true;
-			}
-			if (_declaration == existing)
-			{
-				this.Declaration = (Declaration)newNode;
-				return true;
-			}
-			if (_filterCondition == existing)
-			{
-				this.FilterCondition = (Expression)newNode;
-				return true;
-			}
-			if (_block == existing)
-			{
-				this.Block = (Block)newNode;
-				return true;
-			}
-			return false;
+			this.Declaration = (Declaration)newNode;
+			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
+		if (_filterCondition == existing)
 		{
-		
-			ExceptionHandler clone = new ExceptionHandler();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			if (null != _declaration)
-			{
-				clone._declaration = _declaration.Clone() as Declaration;
-				clone._declaration.InitializeParent(clone);
-			}
-			if (null != _filterCondition)
-			{
-				clone._filterCondition = _filterCondition.Clone() as Expression;
-				clone._filterCondition.InitializeParent(clone);
-			}
-			clone._flags = _flags;
-			if (null != _block)
-			{
-				clone._block = _block.Clone() as Block;
-				clone._block.InitializeParent(clone);
-			}
-			return clone;
-
-
+			this.FilterCondition = (Expression)newNode;
+			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
+		if (_block == existing)
 		{
-			_annotations = null;
-			_entity = null;
-			if (null != _declaration)
-			{
-				_declaration.ClearTypeSystemBindings();
-			}
-			if (null != _filterCondition)
-			{
-				_filterCondition.ClearTypeSystemBindings();
-			}
-			if (null != _block)
-			{
-				_block.ClearTypeSystemBindings();
-			}
-
+			this.Block = (Block)newNode;
+			return true;
 		}
+		return false;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Declaration Declaration
+		ExceptionHandler clone = new ExceptionHandler();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		if (null != _declaration)
 		{
-			
-			get { return _declaration; }
-			set
-			{
-				if (_declaration != value)
-				{
-					_declaration = value;
-					if (null != _declaration)
-					{
-						_declaration.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._declaration = _declaration.Clone() as Declaration;
+			clone._declaration.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Expression FilterCondition
+		if (null != _filterCondition)
 		{
-			
-			get { return _filterCondition; }
-			set
-			{
-				if (_filterCondition != value)
-				{
-					_filterCondition = value;
-					if (null != _filterCondition)
-					{
-						_filterCondition.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._filterCondition = _filterCondition.Clone() as Expression;
+			clone._filterCondition.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public ExceptionHandlerFlags Flags
+		clone._flags = _flags;
+		if (null != _block)
 		{
-			
-			get { return _flags; }
-			set { _flags = value; }
-
+			clone._block = _block.Clone() as Block;
+			clone._block.InitializeParent(clone);
 		}
-		
+		return clone;
 
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Block Block
-		{
-			
-			get
-			{ 
-				if (_block == null)
-				{
-					_block = new Block();
-					_block.InitializeParent(this);
-				}
-				return _block;
-			}
-			set
-			{
-				if (_block != value)
-				{
-					_block = value;
-					if (null != _block)
-					{
-						_block.InitializeParent(this);
-					}
-				}
-			}
-
-		}
-		
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		if (null != _declaration)
+		{
+			_declaration.ClearTypeSystemBindings();
+		}
+		if (null != _filterCondition)
+		{
+			_filterCondition.ClearTypeSystemBindings();
+		}
+		if (null != _block)
+		{
+			_block.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Declaration Declaration
+	{
+		
+		get { return _declaration; }
+		set
+		{
+			if (_declaration != value)
+			{
+				_declaration = value;
+				if (null != _declaration)
+				{
+					_declaration.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Expression FilterCondition
+	{
+		
+		get { return _filterCondition; }
+		set
+		{
+			if (_filterCondition != value)
+			{
+				_filterCondition = value;
+				if (null != _filterCondition)
+				{
+					_filterCondition.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public ExceptionHandlerFlags Flags
+	{
+		
+		get { return _flags; }
+		set { _flags = value; }
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Block Block
+	{
+		
+		get
+		{ 
+			if (_block == null)
+			{
+				_block = new Block();
+				_block.InitializeParent(this);
+			}
+			return _block;
+		}
+		set
+		{
+			if (_block != value)
+			{
+				_block = value;
+				if (null != _block)
+				{
+					_block.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

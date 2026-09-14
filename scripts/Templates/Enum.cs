@@ -1,14 +1,14 @@
 ${header}
-namespace Boo.Lang.Compiler.Ast
-{
-	using System;
+namespace Boo.Lang.Compiler.Ast;
 
-	[Serializable]
+using System;
+
+[Serializable]
 <% if node.Attributes.Contains("Flags"):
-%>	[Flags]
+%>[Flags]
 <% end
-%>	public enum ${node.Name}
-	{
+%>public enum ${node.Name}
+{
 <%
 last = node.Members[-1]
 
@@ -20,8 +20,7 @@ for field as EnumMember in node.Members:
 		initializer = ""
 	end
 	separator = "" if field is last
-%>		${field.Name}${initializer}${separator}
+%>	${field.Name}${initializer}${separator}
 <%
 end
-%>	}
-}
+%>}

@@ -31,249 +31,248 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class GeneratorExpression : Expression
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class GeneratorExpression : Expression
+{
+	protected Expression _expression;
+
+	protected DeclarationCollection _declarations;
+
+	protected Expression _iterator;
+
+	protected StatementModifier _filter;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public GeneratorExpression CloneNode()
 	{
-		protected Expression _expression;
+		return (GeneratorExpression)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public GeneratorExpression CleanClone()
+	{
+		return (GeneratorExpression)base.CleanClone();
+	}
 
-		protected DeclarationCollection _declarations;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.GeneratorExpression; }
+	}
 
-		protected Expression _iterator;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnGeneratorExpression(this);
+	}
 
-		protected StatementModifier _filter;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( GeneratorExpression)node;
+		if (!Node.Matches(_expression, other._expression)) return NoMatch("GeneratorExpression._expression");
+		if (!Node.AllMatch(_declarations, other._declarations)) return NoMatch("GeneratorExpression._declarations");
+		if (!Node.Matches(_iterator, other._iterator)) return NoMatch("GeneratorExpression._iterator");
+		if (!Node.Matches(_filter, other._filter)) return NoMatch("GeneratorExpression._filter");
+		return true;
+	}
 
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public GeneratorExpression CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (GeneratorExpression)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public GeneratorExpression CleanClone()
-		{
-			return (GeneratorExpression)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.GeneratorExpression; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnGeneratorExpression(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( GeneratorExpression)node;
-			if (!Node.Matches(_expression, other._expression)) return NoMatch("GeneratorExpression._expression");
-			if (!Node.AllMatch(_declarations, other._declarations)) return NoMatch("GeneratorExpression._declarations");
-			if (!Node.Matches(_iterator, other._iterator)) return NoMatch("GeneratorExpression._iterator");
-			if (!Node.Matches(_filter, other._filter)) return NoMatch("GeneratorExpression._filter");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_expression == existing)
 		{
-			if (base.Replace(existing, newNode))
+			this.Expression = (Expression)newNode;
+			return true;
+		}
+		if (_declarations != null)
+		{
+			Declaration item = existing as Declaration;
+			if (null != item)
 			{
-				return true;
-			}
-			if (_expression == existing)
-			{
-				this.Expression = (Expression)newNode;
-				return true;
-			}
-			if (_declarations != null)
-			{
-				Declaration item = existing as Declaration;
-				if (null != item)
+				Declaration newItem = (Declaration)newNode;
+				if (_declarations.Replace(item, newItem))
 				{
-					Declaration newItem = (Declaration)newNode;
-					if (_declarations.Replace(item, newItem))
-					{
-						return true;
-					}
+					return true;
 				}
 			}
-			if (_iterator == existing)
-			{
-				this.Iterator = (Expression)newNode;
-				return true;
-			}
-			if (_filter == existing)
-			{
-				this.Filter = (StatementModifier)newNode;
-				return true;
-			}
-			return false;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
+		if (_iterator == existing)
 		{
-		
-			GeneratorExpression clone = new GeneratorExpression();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			clone._expressionType = _expressionType;
-			if (null != _expression)
-			{
-				clone._expression = _expression.Clone() as Expression;
-				clone._expression.InitializeParent(clone);
-			}
-			if (null != _declarations)
-			{
-				clone._declarations = _declarations.Clone() as DeclarationCollection;
-				clone._declarations.InitializeParent(clone);
-			}
-			if (null != _iterator)
-			{
-				clone._iterator = _iterator.Clone() as Expression;
-				clone._iterator.InitializeParent(clone);
-			}
-			if (null != _filter)
-			{
-				clone._filter = _filter.Clone() as StatementModifier;
-				clone._filter.InitializeParent(clone);
-			}
-			return clone;
-
-
+			this.Iterator = (Expression)newNode;
+			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
+		if (_filter == existing)
 		{
-			_annotations = null;
-			_entity = null;
-			_expressionType = null;
-			if (null != _expression)
-			{
-				_expression.ClearTypeSystemBindings();
-			}
-			if (null != _declarations)
-			{
-				_declarations.ClearTypeSystemBindings();
-			}
-			if (null != _iterator)
-			{
-				_iterator.ClearTypeSystemBindings();
-			}
-			if (null != _filter)
-			{
-				_filter.ClearTypeSystemBindings();
-			}
-
+			this.Filter = (StatementModifier)newNode;
+			return true;
 		}
+		return false;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Expression Expression
+		GeneratorExpression clone = new GeneratorExpression();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		clone._expressionType = _expressionType;
+		if (null != _expression)
 		{
-			
-			get { return _expression; }
-			set
-			{
-				if (_expression != value)
-				{
-					_expression = value;
-					if (null != _expression)
-					{
-						_expression.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._expression = _expression.Clone() as Expression;
+			clone._expression.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlArray]
-		[System.Xml.Serialization.XmlArrayItem(typeof(Declaration))]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public DeclarationCollection Declarations
+		if (null != _declarations)
 		{
-			
-
-			get { return _declarations ?? (_declarations = new DeclarationCollection(this)); }
-			set
-			{
-				if (_declarations != value)
-				{
-					_declarations = value;
-					if (null != _declarations)
-					{
-						_declarations.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._declarations = _declarations.Clone() as DeclarationCollection;
+			clone._declarations.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Expression Iterator
+		if (null != _iterator)
 		{
-			
-			get { return _iterator; }
-			set
-			{
-				if (_iterator != value)
-				{
-					_iterator = value;
-					if (null != _iterator)
-					{
-						_iterator.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._iterator = _iterator.Clone() as Expression;
+			clone._iterator.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public StatementModifier Filter
+		if (null != _filter)
 		{
-			
-			get { return _filter; }
-			set
-			{
-				if (_filter != value)
-				{
-					_filter = value;
-					if (null != _filter)
-					{
-						_filter.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._filter = _filter.Clone() as StatementModifier;
+			clone._filter.InitializeParent(clone);
 		}
-		
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		_expressionType = null;
+		if (null != _expression)
+		{
+			_expression.ClearTypeSystemBindings();
+		}
+		if (null != _declarations)
+		{
+			_declarations.ClearTypeSystemBindings();
+		}
+		if (null != _iterator)
+		{
+			_iterator.ClearTypeSystemBindings();
+		}
+		if (null != _filter)
+		{
+			_filter.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Expression Expression
+	{
+		
+		get { return _expression; }
+		set
+		{
+			if (_expression != value)
+			{
+				_expression = value;
+				if (null != _expression)
+				{
+					_expression.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlArray]
+	[System.Xml.Serialization.XmlArrayItem(typeof(Declaration))]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public DeclarationCollection Declarations
+	{
+		
+
+		get { return _declarations ?? (_declarations = new DeclarationCollection(this)); }
+		set
+		{
+			if (_declarations != value)
+			{
+				_declarations = value;
+				if (null != _declarations)
+				{
+					_declarations.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Expression Iterator
+	{
+		
+		get { return _iterator; }
+		set
+		{
+			if (_iterator != value)
+			{
+				_iterator = value;
+				if (null != _iterator)
+				{
+					_iterator.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public StatementModifier Filter
+	{
+		
+		get { return _filter; }
+		set
+		{
+			if (_filter != value)
+			{
+				_filter = value;
+				if (null != _filter)
+				{
+					_filter.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

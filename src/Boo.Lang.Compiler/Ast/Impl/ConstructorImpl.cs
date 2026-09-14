@@ -31,247 +31,246 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class Constructor : Method
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class Constructor : Method
+{
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public Constructor CloneNode()
 	{
+		return (Constructor)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public Constructor CleanClone()
+	{
+		return (Constructor)base.CleanClone();
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public Constructor CloneNode()
-		{
-			return (Constructor)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public Constructor CleanClone()
-		{
-			return (Constructor)base.CleanClone();
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.Constructor; }
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.Constructor; }
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnConstructor(this);
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnConstructor(this);
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( Constructor)node;
+		if (_modifiers != other._modifiers) return NoMatch("Constructor._modifiers");
+		if (_name != other._name) return NoMatch("Constructor._name");
+		if (!Node.AllMatch(_attributes, other._attributes)) return NoMatch("Constructor._attributes");
+		if (!Node.AllMatch(_parameters, other._parameters)) return NoMatch("Constructor._parameters");
+		if (!Node.AllMatch(_genericParameters, other._genericParameters)) return NoMatch("Constructor._genericParameters");
+		if (!Node.Matches(_returnType, other._returnType)) return NoMatch("Constructor._returnType");
+		if (!Node.AllMatch(_returnTypeAttributes, other._returnTypeAttributes)) return NoMatch("Constructor._returnTypeAttributes");
+		if (!Node.Matches(_body, other._body)) return NoMatch("Constructor._body");
+		if (!Node.AllMatch(_locals, other._locals)) return NoMatch("Constructor._locals");
+		if (_implementationFlags != other._implementationFlags) return NoMatch("Constructor._implementationFlags");
+		if (!Node.Matches(_explicitInfo, other._explicitInfo)) return NoMatch("Constructor._explicitInfo");
+		return true;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( Constructor)node;
-			if (_modifiers != other._modifiers) return NoMatch("Constructor._modifiers");
-			if (_name != other._name) return NoMatch("Constructor._name");
-			if (!Node.AllMatch(_attributes, other._attributes)) return NoMatch("Constructor._attributes");
-			if (!Node.AllMatch(_parameters, other._parameters)) return NoMatch("Constructor._parameters");
-			if (!Node.AllMatch(_genericParameters, other._genericParameters)) return NoMatch("Constructor._genericParameters");
-			if (!Node.Matches(_returnType, other._returnType)) return NoMatch("Constructor._returnType");
-			if (!Node.AllMatch(_returnTypeAttributes, other._returnTypeAttributes)) return NoMatch("Constructor._returnTypeAttributes");
-			if (!Node.Matches(_body, other._body)) return NoMatch("Constructor._body");
-			if (!Node.AllMatch(_locals, other._locals)) return NoMatch("Constructor._locals");
-			if (_implementationFlags != other._implementationFlags) return NoMatch("Constructor._implementationFlags");
-			if (!Node.Matches(_explicitInfo, other._explicitInfo)) return NoMatch("Constructor._explicitInfo");
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
+		{
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_attributes != null)
 		{
-			if (base.Replace(existing, newNode))
+			Attribute item = existing as Attribute;
+			if (null != item)
 			{
-				return true;
-			}
-			if (_attributes != null)
-			{
-				Attribute item = existing as Attribute;
-				if (null != item)
+				Attribute newItem = (Attribute)newNode;
+				if (_attributes.Replace(item, newItem))
 				{
-					Attribute newItem = (Attribute)newNode;
-					if (_attributes.Replace(item, newItem))
-					{
-						return true;
-					}
+					return true;
 				}
 			}
-			if (_parameters != null)
-			{
-				ParameterDeclaration item = existing as ParameterDeclaration;
-				if (null != item)
-				{
-					ParameterDeclaration newItem = (ParameterDeclaration)newNode;
-					if (_parameters.Replace(item, newItem))
-					{
-						return true;
-					}
-				}
-			}
-			if (_genericParameters != null)
-			{
-				GenericParameterDeclaration item = existing as GenericParameterDeclaration;
-				if (null != item)
-				{
-					GenericParameterDeclaration newItem = (GenericParameterDeclaration)newNode;
-					if (_genericParameters.Replace(item, newItem))
-					{
-						return true;
-					}
-				}
-			}
-			if (_returnType == existing)
-			{
-				this.ReturnType = (TypeReference)newNode;
-				return true;
-			}
-			if (_returnTypeAttributes != null)
-			{
-				Attribute item = existing as Attribute;
-				if (null != item)
-				{
-					Attribute newItem = (Attribute)newNode;
-					if (_returnTypeAttributes.Replace(item, newItem))
-					{
-						return true;
-					}
-				}
-			}
-			if (_body == existing)
-			{
-				this.Body = (Block)newNode;
-				return true;
-			}
-			if (_locals != null)
-			{
-				Local item = existing as Local;
-				if (null != item)
-				{
-					Local newItem = (Local)newNode;
-					if (_locals.Replace(item, newItem))
-					{
-						return true;
-					}
-				}
-			}
-			if (_explicitInfo == existing)
-			{
-				this.ExplicitInfo = (ExplicitMemberInfo)newNode;
-				return true;
-			}
-			return false;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
+		if (_parameters != null)
 		{
-		
-			Constructor clone = new Constructor();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			clone._modifiers = _modifiers;
-			clone._name = _name;
-			if (null != _attributes)
+			ParameterDeclaration item = existing as ParameterDeclaration;
+			if (null != item)
 			{
-				clone._attributes = _attributes.Clone() as AttributeCollection;
-				clone._attributes.InitializeParent(clone);
+				ParameterDeclaration newItem = (ParameterDeclaration)newNode;
+				if (_parameters.Replace(item, newItem))
+				{
+					return true;
+				}
 			}
-			if (null != _parameters)
-			{
-				clone._parameters = _parameters.Clone() as ParameterDeclarationCollection;
-				clone._parameters.InitializeParent(clone);
-			}
-			if (null != _genericParameters)
-			{
-				clone._genericParameters = _genericParameters.Clone() as GenericParameterDeclarationCollection;
-				clone._genericParameters.InitializeParent(clone);
-			}
-			if (null != _returnType)
-			{
-				clone._returnType = _returnType.Clone() as TypeReference;
-				clone._returnType.InitializeParent(clone);
-			}
-			if (null != _returnTypeAttributes)
-			{
-				clone._returnTypeAttributes = _returnTypeAttributes.Clone() as AttributeCollection;
-				clone._returnTypeAttributes.InitializeParent(clone);
-			}
-			if (null != _body)
-			{
-				clone._body = _body.Clone() as Block;
-				clone._body.InitializeParent(clone);
-			}
-			if (null != _locals)
-			{
-				clone._locals = _locals.Clone() as LocalCollection;
-				clone._locals.InitializeParent(clone);
-			}
-			clone._implementationFlags = _implementationFlags;
-			if (null != _explicitInfo)
-			{
-				clone._explicitInfo = _explicitInfo.Clone() as ExplicitMemberInfo;
-				clone._explicitInfo.InitializeParent(clone);
-			}
-			return clone;
-
-
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
+		if (_genericParameters != null)
 		{
-			_annotations = null;
-			_entity = null;
-			if (null != _attributes)
+			GenericParameterDeclaration item = existing as GenericParameterDeclaration;
+			if (null != item)
 			{
-				_attributes.ClearTypeSystemBindings();
+				GenericParameterDeclaration newItem = (GenericParameterDeclaration)newNode;
+				if (_genericParameters.Replace(item, newItem))
+				{
+					return true;
+				}
 			}
-			if (null != _parameters)
-			{
-				_parameters.ClearTypeSystemBindings();
-			}
-			if (null != _genericParameters)
-			{
-				_genericParameters.ClearTypeSystemBindings();
-			}
-			if (null != _returnType)
-			{
-				_returnType.ClearTypeSystemBindings();
-			}
-			if (null != _returnTypeAttributes)
-			{
-				_returnTypeAttributes.ClearTypeSystemBindings();
-			}
-			if (null != _body)
-			{
-				_body.ClearTypeSystemBindings();
-			}
-			if (null != _locals)
-			{
-				_locals.ClearTypeSystemBindings();
-			}
-			if (null != _explicitInfo)
-			{
-				_explicitInfo.ClearTypeSystemBindings();
-			}
-
 		}
+		if (_returnType == existing)
+		{
+			this.ReturnType = (TypeReference)newNode;
+			return true;
+		}
+		if (_returnTypeAttributes != null)
+		{
+			Attribute item = existing as Attribute;
+			if (null != item)
+			{
+				Attribute newItem = (Attribute)newNode;
+				if (_returnTypeAttributes.Replace(item, newItem))
+				{
+					return true;
+				}
+			}
+		}
+		if (_body == existing)
+		{
+			this.Body = (Block)newNode;
+			return true;
+		}
+		if (_locals != null)
+		{
+			Local item = existing as Local;
+			if (null != item)
+			{
+				Local newItem = (Local)newNode;
+				if (_locals.Replace(item, newItem))
+				{
+					return true;
+				}
+			}
+		}
+		if (_explicitInfo == existing)
+		{
+			this.ExplicitInfo = (ExplicitMemberInfo)newNode;
+			return true;
+		}
+		return false;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
+		Constructor clone = new Constructor();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		clone._modifiers = _modifiers;
+		clone._name = _name;
+		if (null != _attributes)
+		{
+			clone._attributes = _attributes.Clone() as AttributeCollection;
+			clone._attributes.InitializeParent(clone);
+		}
+		if (null != _parameters)
+		{
+			clone._parameters = _parameters.Clone() as ParameterDeclarationCollection;
+			clone._parameters.InitializeParent(clone);
+		}
+		if (null != _genericParameters)
+		{
+			clone._genericParameters = _genericParameters.Clone() as GenericParameterDeclarationCollection;
+			clone._genericParameters.InitializeParent(clone);
+		}
+		if (null != _returnType)
+		{
+			clone._returnType = _returnType.Clone() as TypeReference;
+			clone._returnType.InitializeParent(clone);
+		}
+		if (null != _returnTypeAttributes)
+		{
+			clone._returnTypeAttributes = _returnTypeAttributes.Clone() as AttributeCollection;
+			clone._returnTypeAttributes.InitializeParent(clone);
+		}
+		if (null != _body)
+		{
+			clone._body = _body.Clone() as Block;
+			clone._body.InitializeParent(clone);
+		}
+		if (null != _locals)
+		{
+			clone._locals = _locals.Clone() as LocalCollection;
+			clone._locals.InitializeParent(clone);
+		}
+		clone._implementationFlags = _implementationFlags;
+		if (null != _explicitInfo)
+		{
+			clone._explicitInfo = _explicitInfo.Clone() as ExplicitMemberInfo;
+			clone._explicitInfo.InitializeParent(clone);
+		}
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		if (null != _attributes)
+		{
+			_attributes.ClearTypeSystemBindings();
+		}
+		if (null != _parameters)
+		{
+			_parameters.ClearTypeSystemBindings();
+		}
+		if (null != _genericParameters)
+		{
+			_genericParameters.ClearTypeSystemBindings();
+		}
+		if (null != _returnType)
+		{
+			_returnType.ClearTypeSystemBindings();
+		}
+		if (null != _returnTypeAttributes)
+		{
+			_returnTypeAttributes.ClearTypeSystemBindings();
+		}
+		if (null != _body)
+		{
+			_body.ClearTypeSystemBindings();
+		}
+		if (null != _locals)
+		{
+			_locals.ClearTypeSystemBindings();
+		}
+		if (null != _explicitInfo)
+		{
+			_explicitInfo.ClearTypeSystemBindings();
+		}
+
+	}
+
+
 }
 

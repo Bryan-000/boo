@@ -31,270 +31,269 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class TryStatement : Statement
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class TryStatement : Statement
+{
+	protected Block _protectedBlock;
+
+	protected ExceptionHandlerCollection _exceptionHandlers;
+
+	protected Block _failureBlock;
+
+	protected Block _ensureBlock;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public TryStatement CloneNode()
 	{
-		protected Block _protectedBlock;
+		return (TryStatement)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public TryStatement CleanClone()
+	{
+		return (TryStatement)base.CleanClone();
+	}
 
-		protected ExceptionHandlerCollection _exceptionHandlers;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.TryStatement; }
+	}
 
-		protected Block _failureBlock;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnTryStatement(this);
+	}
 
-		protected Block _ensureBlock;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( TryStatement)node;
+		if (!Node.Matches(_modifier, other._modifier)) return NoMatch("TryStatement._modifier");
+		if (!Node.Matches(_protectedBlock, other._protectedBlock)) return NoMatch("TryStatement._protectedBlock");
+		if (!Node.AllMatch(_exceptionHandlers, other._exceptionHandlers)) return NoMatch("TryStatement._exceptionHandlers");
+		if (!Node.Matches(_failureBlock, other._failureBlock)) return NoMatch("TryStatement._failureBlock");
+		if (!Node.Matches(_ensureBlock, other._ensureBlock)) return NoMatch("TryStatement._ensureBlock");
+		return true;
+	}
 
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public TryStatement CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (TryStatement)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public TryStatement CleanClone()
-		{
-			return (TryStatement)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.TryStatement; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnTryStatement(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( TryStatement)node;
-			if (!Node.Matches(_modifier, other._modifier)) return NoMatch("TryStatement._modifier");
-			if (!Node.Matches(_protectedBlock, other._protectedBlock)) return NoMatch("TryStatement._protectedBlock");
-			if (!Node.AllMatch(_exceptionHandlers, other._exceptionHandlers)) return NoMatch("TryStatement._exceptionHandlers");
-			if (!Node.Matches(_failureBlock, other._failureBlock)) return NoMatch("TryStatement._failureBlock");
-			if (!Node.Matches(_ensureBlock, other._ensureBlock)) return NoMatch("TryStatement._ensureBlock");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_modifier == existing)
 		{
-			if (base.Replace(existing, newNode))
+			this.Modifier = (StatementModifier)newNode;
+			return true;
+		}
+		if (_protectedBlock == existing)
+		{
+			this.ProtectedBlock = (Block)newNode;
+			return true;
+		}
+		if (_exceptionHandlers != null)
+		{
+			ExceptionHandler item = existing as ExceptionHandler;
+			if (null != item)
 			{
-				return true;
-			}
-			if (_modifier == existing)
-			{
-				this.Modifier = (StatementModifier)newNode;
-				return true;
-			}
-			if (_protectedBlock == existing)
-			{
-				this.ProtectedBlock = (Block)newNode;
-				return true;
-			}
-			if (_exceptionHandlers != null)
-			{
-				ExceptionHandler item = existing as ExceptionHandler;
-				if (null != item)
+				ExceptionHandler newItem = (ExceptionHandler)newNode;
+				if (_exceptionHandlers.Replace(item, newItem))
 				{
-					ExceptionHandler newItem = (ExceptionHandler)newNode;
-					if (_exceptionHandlers.Replace(item, newItem))
-					{
-						return true;
-					}
+					return true;
 				}
 			}
-			if (_failureBlock == existing)
-			{
-				this.FailureBlock = (Block)newNode;
-				return true;
-			}
-			if (_ensureBlock == existing)
-			{
-				this.EnsureBlock = (Block)newNode;
-				return true;
-			}
-			return false;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
+		if (_failureBlock == existing)
 		{
-		
-			TryStatement clone = new TryStatement();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			if (null != _modifier)
-			{
-				clone._modifier = _modifier.Clone() as StatementModifier;
-				clone._modifier.InitializeParent(clone);
-			}
-			if (null != _protectedBlock)
-			{
-				clone._protectedBlock = _protectedBlock.Clone() as Block;
-				clone._protectedBlock.InitializeParent(clone);
-			}
-			if (null != _exceptionHandlers)
-			{
-				clone._exceptionHandlers = _exceptionHandlers.Clone() as ExceptionHandlerCollection;
-				clone._exceptionHandlers.InitializeParent(clone);
-			}
-			if (null != _failureBlock)
-			{
-				clone._failureBlock = _failureBlock.Clone() as Block;
-				clone._failureBlock.InitializeParent(clone);
-			}
-			if (null != _ensureBlock)
-			{
-				clone._ensureBlock = _ensureBlock.Clone() as Block;
-				clone._ensureBlock.InitializeParent(clone);
-			}
-			return clone;
-
-
+			this.FailureBlock = (Block)newNode;
+			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
+		if (_ensureBlock == existing)
 		{
-			_annotations = null;
-			_entity = null;
-			if (null != _modifier)
-			{
-				_modifier.ClearTypeSystemBindings();
-			}
-			if (null != _protectedBlock)
-			{
-				_protectedBlock.ClearTypeSystemBindings();
-			}
-			if (null != _exceptionHandlers)
-			{
-				_exceptionHandlers.ClearTypeSystemBindings();
-			}
-			if (null != _failureBlock)
-			{
-				_failureBlock.ClearTypeSystemBindings();
-			}
-			if (null != _ensureBlock)
-			{
-				_ensureBlock.ClearTypeSystemBindings();
-			}
-
+			this.EnsureBlock = (Block)newNode;
+			return true;
 		}
+		return false;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Block ProtectedBlock
+		TryStatement clone = new TryStatement();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		if (null != _modifier)
 		{
-			
-			get
-			{ 
-				if (_protectedBlock == null)
-				{
-					_protectedBlock = new Block();
-					_protectedBlock.InitializeParent(this);
-				}
-				return _protectedBlock;
-			}
-			set
-			{
-				if (_protectedBlock != value)
-				{
-					_protectedBlock = value;
-					if (null != _protectedBlock)
-					{
-						_protectedBlock.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._modifier = _modifier.Clone() as StatementModifier;
+			clone._modifier.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlArray]
-		[System.Xml.Serialization.XmlArrayItem(typeof(ExceptionHandler))]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public ExceptionHandlerCollection ExceptionHandlers
+		if (null != _protectedBlock)
 		{
-			
-
-			get { return _exceptionHandlers ?? (_exceptionHandlers = new ExceptionHandlerCollection(this)); }
-			set
-			{
-				if (_exceptionHandlers != value)
-				{
-					_exceptionHandlers = value;
-					if (null != _exceptionHandlers)
-					{
-						_exceptionHandlers.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._protectedBlock = _protectedBlock.Clone() as Block;
+			clone._protectedBlock.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Block FailureBlock
+		if (null != _exceptionHandlers)
 		{
-			
-			get { return _failureBlock; }
-			set
-			{
-				if (_failureBlock != value)
-				{
-					_failureBlock = value;
-					if (null != _failureBlock)
-					{
-						_failureBlock.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._exceptionHandlers = _exceptionHandlers.Clone() as ExceptionHandlerCollection;
+			clone._exceptionHandlers.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Block EnsureBlock
+		if (null != _failureBlock)
 		{
-			
-			get { return _ensureBlock; }
-			set
-			{
-				if (_ensureBlock != value)
-				{
-					_ensureBlock = value;
-					if (null != _ensureBlock)
-					{
-						_ensureBlock.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._failureBlock = _failureBlock.Clone() as Block;
+			clone._failureBlock.InitializeParent(clone);
 		}
-		
+		if (null != _ensureBlock)
+		{
+			clone._ensureBlock = _ensureBlock.Clone() as Block;
+			clone._ensureBlock.InitializeParent(clone);
+		}
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		if (null != _modifier)
+		{
+			_modifier.ClearTypeSystemBindings();
+		}
+		if (null != _protectedBlock)
+		{
+			_protectedBlock.ClearTypeSystemBindings();
+		}
+		if (null != _exceptionHandlers)
+		{
+			_exceptionHandlers.ClearTypeSystemBindings();
+		}
+		if (null != _failureBlock)
+		{
+			_failureBlock.ClearTypeSystemBindings();
+		}
+		if (null != _ensureBlock)
+		{
+			_ensureBlock.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Block ProtectedBlock
+	{
+		
+		get
+		{ 
+			if (_protectedBlock == null)
+			{
+				_protectedBlock = new Block();
+				_protectedBlock.InitializeParent(this);
+			}
+			return _protectedBlock;
+		}
+		set
+		{
+			if (_protectedBlock != value)
+			{
+				_protectedBlock = value;
+				if (null != _protectedBlock)
+				{
+					_protectedBlock.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlArray]
+	[System.Xml.Serialization.XmlArrayItem(typeof(ExceptionHandler))]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public ExceptionHandlerCollection ExceptionHandlers
+	{
+		
+
+		get { return _exceptionHandlers ?? (_exceptionHandlers = new ExceptionHandlerCollection(this)); }
+		set
+		{
+			if (_exceptionHandlers != value)
+			{
+				_exceptionHandlers = value;
+				if (null != _exceptionHandlers)
+				{
+					_exceptionHandlers.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Block FailureBlock
+	{
+		
+		get { return _failureBlock; }
+		set
+		{
+			if (_failureBlock != value)
+			{
+				_failureBlock = value;
+				if (null != _failureBlock)
+				{
+					_failureBlock.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Block EnsureBlock
+	{
+		
+		get { return _ensureBlock; }
+		set
+		{
+			if (_ensureBlock != value)
+			{
+				_ensureBlock = value;
+				if (null != _ensureBlock)
+				{
+					_ensureBlock.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

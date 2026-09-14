@@ -31,192 +31,191 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class IfStatement : ConditionalStatement
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class IfStatement : ConditionalStatement
+{
+	protected Block _trueBlock;
+
+	protected Block _falseBlock;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public IfStatement CloneNode()
 	{
-		protected Block _trueBlock;
+		return (IfStatement)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public IfStatement CleanClone()
+	{
+		return (IfStatement)base.CleanClone();
+	}
 
-		protected Block _falseBlock;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.IfStatement; }
+	}
 
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnIfStatement(this);
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public IfStatement CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( IfStatement)node;
+		if (!Node.Matches(_modifier, other._modifier)) return NoMatch("IfStatement._modifier");
+		if (!Node.Matches(_condition, other._condition)) return NoMatch("IfStatement._condition");
+		if (!Node.Matches(_trueBlock, other._trueBlock)) return NoMatch("IfStatement._trueBlock");
+		if (!Node.Matches(_falseBlock, other._falseBlock)) return NoMatch("IfStatement._falseBlock");
+		return true;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (IfStatement)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public IfStatement CleanClone()
-		{
-			return (IfStatement)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.IfStatement; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnIfStatement(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( IfStatement)node;
-			if (!Node.Matches(_modifier, other._modifier)) return NoMatch("IfStatement._modifier");
-			if (!Node.Matches(_condition, other._condition)) return NoMatch("IfStatement._condition");
-			if (!Node.Matches(_trueBlock, other._trueBlock)) return NoMatch("IfStatement._trueBlock");
-			if (!Node.Matches(_falseBlock, other._falseBlock)) return NoMatch("IfStatement._falseBlock");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_modifier == existing)
 		{
-			if (base.Replace(existing, newNode))
-			{
-				return true;
-			}
-			if (_modifier == existing)
-			{
-				this.Modifier = (StatementModifier)newNode;
-				return true;
-			}
-			if (_condition == existing)
-			{
-				this.Condition = (Expression)newNode;
-				return true;
-			}
-			if (_trueBlock == existing)
-			{
-				this.TrueBlock = (Block)newNode;
-				return true;
-			}
-			if (_falseBlock == existing)
-			{
-				this.FalseBlock = (Block)newNode;
-				return true;
-			}
-			return false;
+			this.Modifier = (StatementModifier)newNode;
+			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
+		if (_condition == existing)
 		{
-		
-			IfStatement clone = new IfStatement();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			if (null != _modifier)
-			{
-				clone._modifier = _modifier.Clone() as StatementModifier;
-				clone._modifier.InitializeParent(clone);
-			}
-			if (null != _condition)
-			{
-				clone._condition = _condition.Clone() as Expression;
-				clone._condition.InitializeParent(clone);
-			}
-			if (null != _trueBlock)
-			{
-				clone._trueBlock = _trueBlock.Clone() as Block;
-				clone._trueBlock.InitializeParent(clone);
-			}
-			if (null != _falseBlock)
-			{
-				clone._falseBlock = _falseBlock.Clone() as Block;
-				clone._falseBlock.InitializeParent(clone);
-			}
-			return clone;
-
-
+			this.Condition = (Expression)newNode;
+			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
+		if (_trueBlock == existing)
 		{
-			_annotations = null;
-			_entity = null;
-			if (null != _modifier)
-			{
-				_modifier.ClearTypeSystemBindings();
-			}
-			if (null != _condition)
-			{
-				_condition.ClearTypeSystemBindings();
-			}
-			if (null != _trueBlock)
-			{
-				_trueBlock.ClearTypeSystemBindings();
-			}
-			if (null != _falseBlock)
-			{
-				_falseBlock.ClearTypeSystemBindings();
-			}
-
+			this.TrueBlock = (Block)newNode;
+			return true;
 		}
+		if (_falseBlock == existing)
+		{
+			this.FalseBlock = (Block)newNode;
+			return true;
+		}
+		return false;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Block TrueBlock
+		IfStatement clone = new IfStatement();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		if (null != _modifier)
 		{
-			
-			get { return _trueBlock; }
-			set
-			{
-				if (_trueBlock != value)
-				{
-					_trueBlock = value;
-					if (null != _trueBlock)
-					{
-						_trueBlock.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._modifier = _modifier.Clone() as StatementModifier;
+			clone._modifier.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Block FalseBlock
+		if (null != _condition)
 		{
-			
-			get { return _falseBlock; }
-			set
-			{
-				if (_falseBlock != value)
-				{
-					_falseBlock = value;
-					if (null != _falseBlock)
-					{
-						_falseBlock.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._condition = _condition.Clone() as Expression;
+			clone._condition.InitializeParent(clone);
 		}
-		
+		if (null != _trueBlock)
+		{
+			clone._trueBlock = _trueBlock.Clone() as Block;
+			clone._trueBlock.InitializeParent(clone);
+		}
+		if (null != _falseBlock)
+		{
+			clone._falseBlock = _falseBlock.Clone() as Block;
+			clone._falseBlock.InitializeParent(clone);
+		}
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		if (null != _modifier)
+		{
+			_modifier.ClearTypeSystemBindings();
+		}
+		if (null != _condition)
+		{
+			_condition.ClearTypeSystemBindings();
+		}
+		if (null != _trueBlock)
+		{
+			_trueBlock.ClearTypeSystemBindings();
+		}
+		if (null != _falseBlock)
+		{
+			_falseBlock.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Block TrueBlock
+	{
+		
+		get { return _trueBlock; }
+		set
+		{
+			if (_trueBlock != value)
+			{
+				_trueBlock = value;
+				if (null != _trueBlock)
+				{
+					_trueBlock.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Block FalseBlock
+	{
+		
+		get { return _falseBlock; }
+		set
+		{
+			if (_falseBlock != value)
+			{
+				_falseBlock = value;
+				if (null != _falseBlock)
+				{
+					_falseBlock.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

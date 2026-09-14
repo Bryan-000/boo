@@ -31,137 +31,136 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public abstract partial class TypeMember : Node, INodeWithAttributes
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public abstract partial class TypeMember : Node, INodeWithAttributes
+{
+	protected TypeMemberModifiers _modifiers;
+
+	protected string _name;
+
+	protected AttributeCollection _attributes;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public TypeMember CloneNode()
 	{
-		protected TypeMemberModifiers _modifiers;
+		return (TypeMember)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public TypeMember CleanClone()
+	{
+		return (TypeMember)base.CleanClone();
+	}
 
-		protected string _name;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( TypeMember)node;
+		if (_modifiers != other._modifiers) return NoMatch("TypeMember._modifiers");
+		if (_name != other._name) return NoMatch("TypeMember._name");
+		if (!Node.AllMatch(_attributes, other._attributes)) return NoMatch("TypeMember._attributes");
+		return true;
+	}
 
-		protected AttributeCollection _attributes;
-
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public TypeMember CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (TypeMember)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public TypeMember CleanClone()
-		{
-			return (TypeMember)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( TypeMember)node;
-			if (_modifiers != other._modifiers) return NoMatch("TypeMember._modifiers");
-			if (_name != other._name) return NoMatch("TypeMember._name");
-			if (!Node.AllMatch(_attributes, other._attributes)) return NoMatch("TypeMember._attributes");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_attributes != null)
 		{
-			if (base.Replace(existing, newNode))
+			Attribute item = existing as Attribute;
+			if (null != item)
 			{
-				return true;
-			}
-			if (_attributes != null)
-			{
-				Attribute item = existing as Attribute;
-				if (null != item)
+				Attribute newItem = (Attribute)newNode;
+				if (_attributes.Replace(item, newItem))
 				{
-					Attribute newItem = (Attribute)newNode;
-					if (_attributes.Replace(item, newItem))
-					{
-						return true;
-					}
+					return true;
 				}
 			}
-			return false;
 		}
+		return false;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
-		{
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 
-			throw new System.InvalidOperationException("Cannot clone abstract class: TypeMember");
-
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
-		{
-			_annotations = null;
-			_entity = null;
-			if (null != _attributes)
-			{
-				_attributes.ClearTypeSystemBindings();
-			}
-
-		}
-	
-
-		[System.Xml.Serialization.XmlAttribute,
-		System.ComponentModel.DefaultValue(TypeMemberModifiers.None)]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public TypeMemberModifiers Modifiers
-		{
-			
-			get { return _modifiers; }
-			set { _modifiers = value; }
-
-		}
-		
-
-		[System.Xml.Serialization.XmlAttribute]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public string Name
-		{
-			
-			get { return _name; }
-			set { _name = value; }
-
-		}
-		
-
-		[System.Xml.Serialization.XmlArray]
-		[System.Xml.Serialization.XmlArrayItem(typeof(Attribute))]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public AttributeCollection Attributes
-		{
-			
-
-			get { return _attributes ?? (_attributes = new AttributeCollection(this)); }
-			set
-			{
-				if (_attributes != value)
-				{
-					_attributes = value;
-					if (null != _attributes)
-					{
-						_attributes.InitializeParent(this);
-					}
-				}
-			}
-
-		}
-		
+		throw new System.InvalidOperationException("Cannot clone abstract class: TypeMember");
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		if (null != _attributes)
+		{
+			_attributes.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlAttribute,
+	System.ComponentModel.DefaultValue(TypeMemberModifiers.None)]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public TypeMemberModifiers Modifiers
+	{
+		
+		get { return _modifiers; }
+		set { _modifiers = value; }
+
+	}
+	
+
+	[System.Xml.Serialization.XmlAttribute]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public string Name
+	{
+		
+		get { return _name; }
+		set { _name = value; }
+
+	}
+	
+
+	[System.Xml.Serialization.XmlArray]
+	[System.Xml.Serialization.XmlArrayItem(typeof(Attribute))]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public AttributeCollection Attributes
+	{
+		
+
+		get { return _attributes ?? (_attributes = new AttributeCollection(this)); }
+		set
+		{
+			if (_attributes != value)
+			{
+				_attributes = value;
+				if (null != _attributes)
+				{
+					_attributes.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

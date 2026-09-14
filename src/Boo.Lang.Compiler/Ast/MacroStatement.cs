@@ -29,66 +29,65 @@
 using System;
 using System.Collections.Generic;
 
-namespace Boo.Lang.Compiler.Ast
+namespace Boo.Lang.Compiler.Ast;
+
+public partial class MacroStatement
 {
-	public partial class MacroStatement
+	private static int _constructionCount = 0;
+	
+	public MacroStatement()
 	{
-		private static int _constructionCount = 0;
-		
-		public MacroStatement()
-		{
-			++_constructionCount;
- 		}
-		
-		public MacroStatement(LexicalInfo lexicalInfoProvider) : base(lexicalInfoProvider)
-		{
-			++_constructionCount;
-		}
-		
-		public MacroStatement(LexicalInfo lexicalInfoProvider, string name) : base(lexicalInfoProvider)
-		{
-			++_constructionCount;
-			this.Name = name;
-		}
-
-		public MacroStatement(string name) : this(LexicalInfo.Empty, name)
-		{
-			++_constructionCount;
-		}
-
-		override public string ToString()
-		{
-			if (Arguments.Count == 0)
-				return _name;
-			return _name + " " + Builtins.join(Arguments, ", ");
-		}
-
-		[Obsolete("Use Body property instead of Block.")]
-		[System.Xml.Serialization.XmlIgnoreAttribute] //do not duplicate Body
-		public Block Block
-		{
-			get { return Body; }
-			set { Body = value; }
-		}
-
-		public MacroStatement GetParentMacroByName(string name)
-		{
-			MacroStatement parent = GetAncestor<MacroStatement>();
-			while (null != parent) {
-				if (parent.Name == name)
-					return parent;
-				else if (parent.Name == "macro") //macro macro
-					if (name == (parent.Arguments[0] as ReferenceExpression).Name)
-						return parent;
-				parent = parent.GetAncestor<MacroStatement>();
-			}
-			return null;
-		}
-		
-		public static int ConstructionCount
-		{
-			get { return _constructionCount; }
-		}
-
+		++_constructionCount;
+ 	}
+	
+	public MacroStatement(LexicalInfo lexicalInfoProvider) : base(lexicalInfoProvider)
+	{
+		++_constructionCount;
 	}
+	
+	public MacroStatement(LexicalInfo lexicalInfoProvider, string name) : base(lexicalInfoProvider)
+	{
+		++_constructionCount;
+		this.Name = name;
+	}
+
+	public MacroStatement(string name) : this(LexicalInfo.Empty, name)
+	{
+		++_constructionCount;
+	}
+
+	override public string ToString()
+	{
+		if (Arguments.Count == 0)
+			return _name;
+		return _name + " " + Builtins.join(Arguments, ", ");
+	}
+
+	[Obsolete("Use Body property instead of Block.")]
+	[System.Xml.Serialization.XmlIgnoreAttribute] //do not duplicate Body
+	public Block Block
+	{
+		get { return Body; }
+		set { Body = value; }
+	}
+
+	public MacroStatement GetParentMacroByName(string name)
+	{
+		MacroStatement parent = GetAncestor<MacroStatement>();
+		while (null != parent) {
+			if (parent.Name == name)
+				return parent;
+			else if (parent.Name == "macro") //macro macro
+				if (name == (parent.Arguments[0] as ReferenceExpression).Name)
+					return parent;
+			parent = parent.GetAncestor<MacroStatement>();
+		}
+		return null;
+	}
+	
+	public static int ConstructionCount
+	{
+		get { return _constructionCount; }
+	}
+
 }
