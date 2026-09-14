@@ -990,6 +990,14 @@ class CompilerErrorsTestFixture(AbstractCompilerErrorsTestFixture):
 		RunCompilerTestCase("strict-1.boo")
 
 	[Test]
+	def @unknown_call_with_closure():
+		RunCompilerTestCase("unknown-call-with-closure.boo")
+
+	[Test]
+	def @unknown_macro_with_block():
+		RunCompilerTestCase("unknown-macro-with-block.boo")
+
+	[Test]
 	def @warnaserror_1():
 		RunCompilerTestCase("warnaserror-1.boo")
 
