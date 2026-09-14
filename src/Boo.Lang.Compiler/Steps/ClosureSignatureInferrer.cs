@@ -169,6 +169,9 @@ namespace Boo.Lang.Compiler.Steps
 			var method = entity as IMethodBase;
 			if (method == null)
 			{
+				// A target that failed to resolve has already been reported.
+				if (entity == null)
+					return null;
 				if (entity.EntityType == EntityType.Type)
 				{
 					var ctors = ((IType)MethodInvocationContext.Target.Entity).GetConstructors().ToArray();
