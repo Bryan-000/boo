@@ -246,6 +246,10 @@ class MacrosTestFixture(AbstractCompilerTestCase):
 		RunCompilerTestCase("print-2.boo")
 
 	[Test]
+	def @print_options():
+		RunCompilerTestCase("print-options.boo")
+
+	[Test]
 	def @then_can_be_used_as_macro_name():
 		RunCompilerTestCase("then-can-be-used-as-macro-name.boo")
 
