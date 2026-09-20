@@ -31,124 +31,123 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class ExplicitMemberInfo : Node
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class ExplicitMemberInfo : Node
+{
+	protected SimpleTypeReference _interfaceType;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public ExplicitMemberInfo CloneNode()
 	{
-		protected SimpleTypeReference _interfaceType;
+		return (ExplicitMemberInfo)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public ExplicitMemberInfo CleanClone()
+	{
+		return (ExplicitMemberInfo)base.CleanClone();
+	}
 
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.ExplicitMemberInfo; }
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public ExplicitMemberInfo CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnExplicitMemberInfo(this);
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( ExplicitMemberInfo)node;
+		if (!Node.Matches(_interfaceType, other._interfaceType)) return NoMatch("ExplicitMemberInfo._interfaceType");
+		return true;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (ExplicitMemberInfo)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public ExplicitMemberInfo CleanClone()
-		{
-			return (ExplicitMemberInfo)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.ExplicitMemberInfo; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnExplicitMemberInfo(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( ExplicitMemberInfo)node;
-			if (!Node.Matches(_interfaceType, other._interfaceType)) return NoMatch("ExplicitMemberInfo._interfaceType");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_interfaceType == existing)
 		{
-			if (base.Replace(existing, newNode))
-			{
-				return true;
-			}
-			if (_interfaceType == existing)
-			{
-				this.InterfaceType = (SimpleTypeReference)newNode;
-				return true;
-			}
-			return false;
+			this.InterfaceType = (SimpleTypeReference)newNode;
+			return true;
 		}
+		return false;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
-		{
-		
-			ExplicitMemberInfo clone = new ExplicitMemberInfo();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			if (null != _interfaceType)
-			{
-				clone._interfaceType = _interfaceType.Clone() as SimpleTypeReference;
-				clone._interfaceType.InitializeParent(clone);
-			}
-			return clone;
-
-
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
-		{
-			_annotations = null;
-			_entity = null;
-			if (null != _interfaceType)
-			{
-				_interfaceType.ClearTypeSystemBindings();
-			}
-
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public SimpleTypeReference InterfaceType
+		ExplicitMemberInfo clone = new ExplicitMemberInfo();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		if (null != _interfaceType)
 		{
-			
-			get { return _interfaceType; }
-			set
-			{
-				if (_interfaceType != value)
-				{
-					_interfaceType = value;
-					if (null != _interfaceType)
-					{
-						_interfaceType.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._interfaceType = _interfaceType.Clone() as SimpleTypeReference;
+			clone._interfaceType.InitializeParent(clone);
 		}
-		
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		if (null != _interfaceType)
+		{
+			_interfaceType.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public SimpleTypeReference InterfaceType
+	{
+		
+		get { return _interfaceType; }
+		set
+		{
+			if (_interfaceType != value)
+			{
+				_interfaceType = value;
+				if (null != _interfaceType)
+				{
+					_interfaceType.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

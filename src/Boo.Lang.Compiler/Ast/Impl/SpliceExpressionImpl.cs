@@ -31,126 +31,125 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class SpliceExpression : Expression
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class SpliceExpression : Expression
+{
+	protected Expression _expression;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public SpliceExpression CloneNode()
 	{
-		protected Expression _expression;
+		return (SpliceExpression)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public SpliceExpression CleanClone()
+	{
+		return (SpliceExpression)base.CleanClone();
+	}
 
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.SpliceExpression; }
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public SpliceExpression CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnSpliceExpression(this);
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( SpliceExpression)node;
+		if (!Node.Matches(_expression, other._expression)) return NoMatch("SpliceExpression._expression");
+		return true;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (SpliceExpression)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public SpliceExpression CleanClone()
-		{
-			return (SpliceExpression)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.SpliceExpression; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnSpliceExpression(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( SpliceExpression)node;
-			if (!Node.Matches(_expression, other._expression)) return NoMatch("SpliceExpression._expression");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_expression == existing)
 		{
-			if (base.Replace(existing, newNode))
-			{
-				return true;
-			}
-			if (_expression == existing)
-			{
-				this.Expression = (Expression)newNode;
-				return true;
-			}
-			return false;
+			this.Expression = (Expression)newNode;
+			return true;
 		}
+		return false;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
-		{
-		
-			SpliceExpression clone = new SpliceExpression();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			clone._expressionType = _expressionType;
-			if (null != _expression)
-			{
-				clone._expression = _expression.Clone() as Expression;
-				clone._expression.InitializeParent(clone);
-			}
-			return clone;
-
-
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
-		{
-			_annotations = null;
-			_entity = null;
-			_expressionType = null;
-			if (null != _expression)
-			{
-				_expression.ClearTypeSystemBindings();
-			}
-
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Expression Expression
+		SpliceExpression clone = new SpliceExpression();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		clone._expressionType = _expressionType;
+		if (null != _expression)
 		{
-			
-			get { return _expression; }
-			set
-			{
-				if (_expression != value)
-				{
-					_expression = value;
-					if (null != _expression)
-					{
-						_expression.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._expression = _expression.Clone() as Expression;
+			clone._expression.InitializeParent(clone);
 		}
-		
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		_expressionType = null;
+		if (null != _expression)
+		{
+			_expression.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Expression Expression
+	{
+		
+		get { return _expression; }
+		set
+		{
+			if (_expression != value)
+			{
+				_expression = value;
+				if (null != _expression)
+				{
+					_expression.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

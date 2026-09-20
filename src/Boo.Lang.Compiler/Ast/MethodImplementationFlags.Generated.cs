@@ -32,14 +32,13 @@
 // This file was generated automatically by astgen.boo.
 //
 
-namespace Boo.Lang.Compiler.Ast
-{
-	using System;
+namespace Boo.Lang.Compiler.Ast;
 
-	[Serializable]
-	public enum MethodImplementationFlags
-	{
-		None = 0,
-		Runtime = 1
-	}
+using System;
+
+[Serializable]
+public enum MethodImplementationFlags
+{
+	None = 0,
+	Runtime = 1
 }

@@ -38,523 +38,522 @@ using Boo.Lang.Compiler.TypeSystem.Services;
 using Boo.Lang.Compiler.Util;
 using Boo.Lang.Environments;
 
-namespace Boo.Lang.Compiler.Steps.MacroProcessing
+namespace Boo.Lang.Compiler.Steps.MacroProcessing;
+
+public sealed class MacroExpander : AbstractNamespaceSensitiveTransformerCompilerStep
 {
-	public sealed class MacroExpander : AbstractNamespaceSensitiveTransformerCompilerStep
+	private int _expanded;
+
+	private Set<Node> _visited = new Set<Node>();
+
+	private Queue<Statement> _pendingExpansions = new Queue<Statement>();
+
+	private DynamicVariable<bool> _ignoringUnknownMacros = new DynamicVariable<bool>(false);
+
+	public bool ExpandAll()
 	{
-		private int _expanded;
+		Reset();
+		Run();
+		BubbleUpPendingTypeMembers();
+		return _expanded > 0;
+	}
 
-		private Set<Node> _visited = new Set<Node>();
+	private void Reset()
+	{
+		_pendingExpansions.Clear();
+		_visited.Clear();
+		_expanded = 0;
+	}
 
-		private Queue<Statement> _pendingExpansions = new Queue<Statement>();
+	override public void Run()
+	{
+		ExpandModuleGlobalsIgnoringUnknownMacros();
+		ExpandModules();
+	}
 
-		private DynamicVariable<bool> _ignoringUnknownMacros = new DynamicVariable<bool>(false);
+	private void ExpandModules()
+	{
+		foreach (Module module in CompileUnit.Modules)
+			ExpandOnModuleNamespace(module, VisitModule);
+	}
 
-		public bool ExpandAll()
+	private void ExpandModuleGlobalsIgnoringUnknownMacros()
+	{
+		foreach (Module module in CompileUnit.Modules)
+			ExpandModuleGlobalsIgnoringUnknownMacros(module);
+	}
+
+	private void ExpandModuleGlobalsIgnoringUnknownMacros(Module current)
+	{
+		_ignoringUnknownMacros.With(true, ()=> ExpandOnModuleNamespace(current, VisitGlobalsAllowingCancellation));
+	}
+
+	private void VisitGlobalsAllowingCancellation(Module module)
+	{
+		var globals = module.Globals.Statements;
+		foreach (var stmt in globals.ToArray())
 		{
-			Reset();
-			Run();
+			Node resultingNode;
+			if (VisitAllowingCancellation(stmt, out resultingNode) && resultingNode != stmt)
+				globals.Replace(stmt, (Statement) resultingNode);
 			BubbleUpPendingTypeMembers();
-			return _expanded > 0;
 		}
+	}
 
-		private void Reset()
+	private void VisitModule(Module module)
+	{
+		Visit(module.Globals);
+		Visit(module.Members);
+	}
+	
+	void ExpandOnModuleNamespace(Module module, Action<Module> action)
+	{
+		EnterModuleNamespace(module);
+		try
 		{
-			_pendingExpansions.Clear();
-			_visited.Clear();
-			_expanded = 0;
+			action(module);
 		}
-
-		override public void Run()
+		finally
 		{
-			ExpandModuleGlobalsIgnoringUnknownMacros();
-			ExpandModules();
+			LeaveNamespace();
 		}
+	}
 
-		private void ExpandModules()
+	private void EnterModuleNamespace(Module module)
+	{
+		EnterNamespace(InternalModule.ScopeFor(module));
+	}
+
+	public override bool EnterClassDefinition(ClassDefinition node)
+	{
+		if (WasVisited(node))
+			return false;
+		_visited.Add(node);
+		return true;
+	}
+
+	bool _referenced;
+
+	internal void EnsureCompilerAssemblyReference(CompilerContext context)
+	{
+		if (_referenced)
+			return;
+
+		if (null != context.References.Find("Boo.Lang.Compiler"))
 		{
-			foreach (Module module in CompileUnit.Modules)
-				ExpandOnModuleNamespace(module, VisitModule);
-		}
-
-		private void ExpandModuleGlobalsIgnoringUnknownMacros()
-		{
-			foreach (Module module in CompileUnit.Modules)
-				ExpandModuleGlobalsIgnoringUnknownMacros(module);
-		}
-
-		private void ExpandModuleGlobalsIgnoringUnknownMacros(Module current)
-		{
-			_ignoringUnknownMacros.With(true, ()=> ExpandOnModuleNamespace(current, VisitGlobalsAllowingCancellation));
-		}
-
-		private void VisitGlobalsAllowingCancellation(Module module)
-		{
-			var globals = module.Globals.Statements;
-			foreach (var stmt in globals.ToArray())
-			{
-				Node resultingNode;
-				if (VisitAllowingCancellation(stmt, out resultingNode) && resultingNode != stmt)
-					globals.Replace(stmt, (Statement) resultingNode);
-				BubbleUpPendingTypeMembers();
-			}
-		}
-
-		private void VisitModule(Module module)
-		{
-			Visit(module.Globals);
-			Visit(module.Members);
-		}
-		
-		void ExpandOnModuleNamespace(Module module, Action<Module> action)
-		{
-			EnterModuleNamespace(module);
-			try
-			{
-				action(module);
-			}
-			finally
-			{
-				LeaveNamespace();
-			}
-		}
-
-		private void EnterModuleNamespace(Module module)
-		{
-			EnterNamespace(InternalModule.ScopeFor(module));
-		}
-
-		public override bool EnterClassDefinition(ClassDefinition node)
-		{
-			if (WasVisited(node))
-				return false;
-			_visited.Add(node);
-			return true;
-		}
-
-		bool _referenced;
-
-		internal void EnsureCompilerAssemblyReference(CompilerContext context)
-		{
-			if (_referenced)
-				return;
-
-			if (null != context.References.Find("Boo.Lang.Compiler"))
-			{
-				_referenced = true;
-				return;
-			}
-
-			context.References.Add(typeof(CompilerContext).Assembly);
 			_referenced = true;
+			return;
 		}
 
-		override public void OnMacroStatement(MacroStatement node)
+		context.References.Add(typeof(CompilerContext).Assembly);
+		_referenced = true;
+	}
+
+	override public void OnMacroStatement(MacroStatement node)
+	{
+		EnsureCompilerAssemblyReference(Context);
+
+		// A nested macro loses its namespace once the macro holding it expands.
+		if (node[MacroExpansion.DeferredMacroType] != null)
+			return;
+
+		var macroType = ResolveMacroName(node) as IType;
+		if (null != macroType)
 		{
-			EnsureCompilerAssemblyReference(Context);
-
-			// A nested macro loses its namespace once the macro holding it expands.
-			if (node[MacroExpansion.DeferredMacroType] != null)
-				return;
-
-			var macroType = ResolveMacroName(node) as IType;
-			if (null != macroType)
-			{
-				ExpandKnownMacro(node, macroType);
-				return;
-			}
-
-			if (_ignoringUnknownMacros.Value)
-				Cancel();
-
-			ExpandUnknownMacro(node);
+			ExpandKnownMacro(node, macroType);
+			return;
 		}
 
-		private bool IsTopLevelExpansion()
-		{
-			return _expansionDepth == 0;
-		}
+		if (_ignoringUnknownMacros.Value)
+			Cancel();
 
-		private void BubbleUpPendingTypeMembers()
-		{
-			while (_pendingExpansions.Count > 0)
-				TypeMemberStatementBubbler.BubbleTypeMemberStatementsUp(_pendingExpansions.Dequeue());
-		}
+		ExpandUnknownMacro(node);
+	}
 
-		private void ExpandKnownMacro(MacroStatement node, IType macroType)
-		{
-			ExpandChildrenOfMacroOnMacroNamespace(node, macroType);
-			ProcessMacro(macroType, node);
-		}
+	private bool IsTopLevelExpansion()
+	{
+		return _expansionDepth == 0;
+	}
 
-		private void ExpandChildrenOfMacroOnMacroNamespace(MacroStatement node, IType macroType)
-		{
-			EnterMacroNamespace(macroType);
-			try
-			{	
-				ExpandChildrenOf(node);
-			}
-			finally
-			{
-				LeaveNamespace();
-			}
-		}
+	private void BubbleUpPendingTypeMembers()
+	{
+		while (_pendingExpansions.Count > 0)
+			TypeMemberStatementBubbler.BubbleTypeMemberStatementsUp(_pendingExpansions.Dequeue());
+	}
 
-		private void EnterMacroNamespace(IType macroType)
-		{
-			EnsureNestedMacrosCanBeSeenAsMembers(macroType);
+	private void ExpandKnownMacro(MacroStatement node, IType macroType)
+	{
+		ExpandChildrenOfMacroOnMacroNamespace(node, macroType);
+		ProcessMacro(macroType, node);
+	}
 
-			EnterNamespace(new NamespaceDelegator(CurrentNamespace, macroType));
-		}
-
-		private static void EnsureNestedMacrosCanBeSeenAsMembers(IType macroType)
-		{
-			var internalMacroType = macroType as InternalClass;
-			if (null != internalMacroType)
-				TypeMemberStatementBubbler.BubbleTypeMemberStatementsUp(internalMacroType.TypeDefinition);
-		}
-
-		private void ExpandUnknownMacro(MacroStatement node)
-		{
+	private void ExpandChildrenOfMacroOnMacroNamespace(MacroStatement node, IType macroType)
+	{
+		EnterMacroNamespace(macroType);
+		try
+		{	
 			ExpandChildrenOf(node);
-			if (IsTypeMemberMacro(node))
-				UnknownTypeMemberMacro(node);
-			else if (IsClosureValue(node))
-				TreatMacroAsReference(node);
+		}
+		finally
+		{
+			LeaveNamespace();
+		}
+	}
+
+	private void EnterMacroNamespace(IType macroType)
+	{
+		EnsureNestedMacrosCanBeSeenAsMembers(macroType);
+
+		EnterNamespace(new NamespaceDelegator(CurrentNamespace, macroType));
+	}
+
+	private static void EnsureNestedMacrosCanBeSeenAsMembers(IType macroType)
+	{
+		var internalMacroType = macroType as InternalClass;
+		if (null != internalMacroType)
+			TypeMemberStatementBubbler.BubbleTypeMemberStatementsUp(internalMacroType.TypeDefinition);
+	}
+
+	private void ExpandUnknownMacro(MacroStatement node)
+	{
+		ExpandChildrenOf(node);
+		if (IsTypeMemberMacro(node))
+			UnknownTypeMemberMacro(node);
+		else if (IsClosureValue(node))
+			TreatMacroAsReference(node);
+		else
+			TreatMacroAsMethodInvocation(node);
+	}
+
+	/// <summary>
+	/// The whole body of a closure being a bare name, as in { x }. The parser
+	/// cannot tell that from a macro invoked without arguments, so it hands
+	/// both here as a MacroStatement. A name that resolved to a macro never
+	/// reaches this point, which is what keeps { print } a call.
+	/// </summary>
+	private static bool IsClosureValue(MacroStatement node)
+	{
+		if (node.Arguments.Count > 0 || !IsNullOrEmpty(node.Body))
+			return false;
+
+		var block = node.ParentNode as Block;
+		if (block == null || block.ParentNode is not BlockExpression)
+			return false;
+
+		// Only a single expression closure yields its expression. Give a
+		// longer body the invocation it has always had.
+		return block.Statements.Count == 1;
+	}
+
+	private void TreatMacroAsReference(MacroStatement node)
+	{
+		ReplaceCurrentNode(new ExpressionStatement(
+			node.LexicalInfo,
+			new ReferenceExpression(node.LexicalInfo, node.Name),
+			node.Modifier));
+	}
+
+	private static bool IsTypeMemberMacro(MacroStatement node)
+	{
+		return node.ParentNode.NodeType == NodeType.StatementTypeMember;
+	}
+
+	private void UnknownTypeMemberMacro(MacroStatement node)
+	{
+		var error = LooksLikeOldStyleFieldDeclaration(node)
+			? CompilerErrorFactory.UnknownClassMacroWithFieldHint(node, node.Name)
+			: CompilerErrorFactory.UnknownMacro(node, node.Name);
+		ProcessingError(error);
+	}
+
+	private static bool LooksLikeOldStyleFieldDeclaration(MacroStatement node)
+	{
+		return node.Arguments.Count == 0 && node.Body.IsEmpty;
+	}
+
+	private void ExpandChildrenOf(MacroStatement node)
+	{
+		EnterExpansion();
+		try
+		{
+			Visit(node.Body);
+			Visit(node.Arguments);
+		}
+		finally
+		{
+			LeaveExpansion();
+		}
+	}
+
+	private void LeaveExpansion()
+	{
+		--_expansionDepth;
+	}
+
+	private void EnterExpansion()
+	{
+		++_expansionDepth;
+	}
+
+	private void ProcessMacro(IType macroType, MacroStatement node)
+	{
+		var externalType = macroType as ExternalType;
+		if (externalType == null)
+		{
+			InternalClass internalType = (InternalClass) macroType;
+			ProcessInternalMacro(internalType, node);
+			return;
+		}
+
+		ProcessMacro(externalType.ActualType, node);
+	}
+
+	private void ProcessInternalMacro(InternalClass klass, MacroStatement node)
+	{
+		TypeDefinition macroDefinition = klass.TypeDefinition;
+		if (MacroDefinitionContainsMacroApplication(macroDefinition, node))
+		{
+			ProcessingError(CompilerErrorFactory.InvalidMacro(node, klass));
+			return;
+		}
+
+		var macroCompiler = My<MacroCompiler>.Instance;
+		bool firstTry = !macroCompiler.AlreadyCompiled(macroDefinition);
+		Type macroType = macroCompiler.Compile(macroDefinition);
+		if (macroType == null)
+		{
+			if (firstTry)
+				ProcessingError(CompilerErrorFactory.AstMacroMustBeExternal(node, klass));
 			else
-				TreatMacroAsMethodInvocation(node);
+				RemoveCurrentNode();
+			return;
+		}
+		ProcessMacro(macroType, node);
+	}
+
+	private static bool MacroDefinitionContainsMacroApplication(TypeDefinition definition, MacroStatement statement)
+	{
+		return statement.GetAncestors<TypeDefinition>().Any(ancestor => ancestor == definition);
+	}
+
+	private int _expansionDepth;
+
+	private bool WasVisited(TypeDefinition node)
+	{
+		return _visited.Contains(node);
+	}
+
+	private void ProcessingError(CompilerError error)
+	{
+		Errors.Add(error);
+		RemoveCurrentNode();
+	}
+
+	private void ProcessMacro(Type actualType, MacroStatement node)
+	{
+		if (!typeof(IAstMacro).IsAssignableFrom(actualType))
+		{
+			ProcessingError(CompilerErrorFactory.InvalidMacro(node, Map(actualType)));
+			return;
 		}
 
-		/// <summary>
-		/// The whole body of a closure being a bare name, as in { x }. The parser
-		/// cannot tell that from a macro invoked without arguments, so it hands
-		/// both here as a MacroStatement. A name that resolved to a macro never
-		/// reaches this point, which is what keeps { print } a call.
-		/// </summary>
-		private static bool IsClosureValue(MacroStatement node)
+		try
 		{
-			if (node.Arguments.Count > 0 || !IsNullOrEmpty(node.Body))
-				return false;
+			var macroExpansion = ExpandMacro(actualType, node);
 
-			var block = node.ParentNode as Block;
-			if (block == null || block.ParentNode is not BlockExpression)
-				return false;
-
-			// Only a single expression closure yields its expression. Give a
-			// longer body the invocation it has always had.
-			return block.Statements.Count == 1;
-		}
-
-		private void TreatMacroAsReference(MacroStatement node)
-		{
-			ReplaceCurrentNode(new ExpressionStatement(
-				node.LexicalInfo,
-				new ReferenceExpression(node.LexicalInfo, node.Name),
-				node.Modifier));
-		}
-
-		private static bool IsTypeMemberMacro(MacroStatement node)
-		{
-			return node.ParentNode.NodeType == NodeType.StatementTypeMember;
-		}
-
-		private void UnknownTypeMemberMacro(MacroStatement node)
-		{
-			var error = LooksLikeOldStyleFieldDeclaration(node)
-				? CompilerErrorFactory.UnknownClassMacroWithFieldHint(node, node.Name)
-				: CompilerErrorFactory.UnknownMacro(node, node.Name);
-			ProcessingError(error);
-		}
-
-		private static bool LooksLikeOldStyleFieldDeclaration(MacroStatement node)
-		{
-			return node.Arguments.Count == 0 && node.Body.IsEmpty;
-		}
-
-		private void ExpandChildrenOf(MacroStatement node)
-		{
-			EnterExpansion();
-			try
+			// Not counted as expanded, or the fixpoint loop would never settle.
+			if (MacroExpansion.IsDeferred(macroExpansion))
 			{
-				Visit(node.Body);
-				Visit(node.Arguments);
-			}
-			finally
-			{
-				LeaveExpansion();
-			}
-		}
-
-		private void LeaveExpansion()
-		{
-			--_expansionDepth;
-		}
-
-		private void EnterExpansion()
-		{
-			++_expansionDepth;
-		}
-
-		private void ProcessMacro(IType macroType, MacroStatement node)
-		{
-			var externalType = macroType as ExternalType;
-			if (externalType == null)
-			{
-				InternalClass internalType = (InternalClass) macroType;
-				ProcessInternalMacro(internalType, node);
+				node[MacroExpansion.DeferredMacroType] = actualType;
 				return;
 			}
 
-			ProcessMacro(externalType.ActualType, node);
+			++_expanded;
+			var completeExpansion = ExpandMacroExpansion(node, macroExpansion);
+			ReplaceCurrentNode(completeExpansion);
+			if (completeExpansion != null && IsTopLevelExpansion())
+				_pendingExpansions.Enqueue(completeExpansion);
 		}
-
-		private void ProcessInternalMacro(InternalClass klass, MacroStatement node)
+		catch (LongJumpException)
 		{
-			TypeDefinition macroDefinition = klass.TypeDefinition;
-			if (MacroDefinitionContainsMacroApplication(macroDefinition, node))
-			{
-				ProcessingError(CompilerErrorFactory.InvalidMacro(node, klass));
-				return;
-			}
-
-			var macroCompiler = My<MacroCompiler>.Instance;
-			bool firstTry = !macroCompiler.AlreadyCompiled(macroDefinition);
-			Type macroType = macroCompiler.Compile(macroDefinition);
-			if (macroType == null)
-			{
-				if (firstTry)
-					ProcessingError(CompilerErrorFactory.AstMacroMustBeExternal(node, klass));
-				else
-					RemoveCurrentNode();
-				return;
-			}
-			ProcessMacro(macroType, node);
+			throw;
 		}
-
-		private static bool MacroDefinitionContainsMacroApplication(TypeDefinition definition, MacroStatement statement)
+		catch (Exception error)
 		{
-			return statement.GetAncestors<TypeDefinition>().Any(ancestor => ancestor == definition);
+			ProcessingError(CompilerErrorFactory.MacroExpansionError(node, error));
 		}
+	}
 
-		private int _expansionDepth;
+	private IType Map(Type actualType)
+	{
+		return TypeSystemServices.Map(actualType);
+	}
 
-		private bool WasVisited(TypeDefinition node)
-		{
-			return _visited.Contains(node);
-		}
-
-		private void ProcessingError(CompilerError error)
-		{
-			Errors.Add(error);
-			RemoveCurrentNode();
-		}
-
-		private void ProcessMacro(Type actualType, MacroStatement node)
-		{
-			if (!typeof(IAstMacro).IsAssignableFrom(actualType))
-			{
-				ProcessingError(CompilerErrorFactory.InvalidMacro(node, Map(actualType)));
-				return;
-			}
-
-			try
-			{
-				var macroExpansion = ExpandMacro(actualType, node);
-
-				// Not counted as expanded, or the fixpoint loop would never settle.
-				if (MacroExpansion.IsDeferred(macroExpansion))
-				{
-					node[MacroExpansion.DeferredMacroType] = actualType;
-					return;
-				}
-
-				++_expanded;
-				var completeExpansion = ExpandMacroExpansion(node, macroExpansion);
-				ReplaceCurrentNode(completeExpansion);
-				if (completeExpansion != null && IsTopLevelExpansion())
-					_pendingExpansions.Enqueue(completeExpansion);
-			}
-			catch (LongJumpException)
-			{
-				throw;
-			}
-			catch (Exception error)
-			{
-				ProcessingError(CompilerErrorFactory.MacroExpansionError(node, error));
-			}
-		}
-
-		private IType Map(Type actualType)
-		{
-			return TypeSystemServices.Map(actualType);
-		}
-
-		private Statement ExpandMacroExpansion(MacroStatement node, Statement expansion)
-		{
-			if (null == expansion)
-				return null;
-
-			Statement modifiedExpansion = ApplyMacroModifierToExpansion(node, expansion);
-			modifiedExpansion.InitializeParent(node.ParentNode);
-			return Visit(modifiedExpansion);
-		}
-
-		private static Statement ApplyMacroModifierToExpansion(MacroStatement node, Statement expansion)
-		{
-			if (node.Modifier == null)
-				return expansion;
-			return NormalizeStatementModifiers.CreateModifiedStatement(node.Modifier, expansion);
-		}
-
-		private void TreatMacroAsMethodInvocation(MacroStatement node)
-		{
-			var invocation = new MethodInvocationExpression(node.LexicalInfo, new ReferenceExpression(node.LexicalInfo, node.Name))
-			                 	{ Arguments = node.Arguments };
-			if (node.ContainsAnnotation("compound") || !IsNullOrEmpty(node.Body))
-				invocation.Arguments.Add(new BlockExpression(node.Body));
-			ReplaceCurrentNode(new ExpressionStatement(node.LexicalInfo, invocation, node.Modifier));
-		}
-		
-		private static bool IsNullOrEmpty(Block block)
-		{
-			return block == null || block.IsEmpty;
-		}
-
-		private Statement ExpandMacro(Type macroType, MacroStatement node)
-		{
-			var macro = (IAstMacro) Activator.CreateInstance(macroType);
-			macro.Initialize(Context);
-
-			//use new-style BOO-1077 generator macro interface if available
-			var gm = macro as IAstGeneratorMacro;
-			if (gm != null)
-				return ExpandGeneratorMacro(gm, node);
-
-			return macro.Expand(node);
-		}
-
-		private static Statement ExpandGeneratorMacro(IAstGeneratorMacro macroType, MacroStatement node)
-		{
-			IEnumerable<Node> generatedNodes = macroType.ExpandGenerator(node);
-			if (null == generatedNodes)
-				return null;
-
-			return new NodeGeneratorExpander(node).Expand(generatedNodes);
-		}
-
-		private IEntity ResolveMacroName(MacroStatement node)
-		{
-			var entity = ResolveMacroTypeName(NameResolutionService, node.Name);
-
-			if (entity is IType)
-				return entity;
-			if (entity == null)
-				return null;
-
-			//we got something interesting, check if it is/has an extension method
-			//that resolves a nested macro extension
-			return ResolveMacroExtensionType(node, entity as IMethod)
-				?? ResolveMacroExtensionType(node, entity as Ambiguous)
-				?? entity; //return as-is
-		}
-
-		/// <summary>
-		/// The type behind a macro name, by the same rules wherever one is looked up.
-		/// </summary>
-		internal static IEntity ResolveMacroTypeName(NameResolutionService nameResolution, string name)
-		{
-			return ResolvePreferringInternalMacros(nameResolution, MacroTypeNameFor(name))
-				?? ResolvePreferringInternalMacros(nameResolution, name);
-		}
-
-		private static IEntity ResolvePreferringInternalMacros(NameResolutionService nameResolution, string macroTypeName)
-		{
-			IEntity resolved = nameResolution.ResolveQualifiedName(macroTypeName);
-			Ambiguous ambiguous = resolved as Ambiguous;
-			if (null != ambiguous && ambiguous.AllEntitiesAre(EntityType.Type))
-				return Entities.PreferInternalEntitiesOverExternalOnes(ambiguous);
-			return resolved;
-		}
-
-		IEntity ResolveMacroExtensionType(MacroStatement node, Ambiguous extensions)
-		{
-			if (null == extensions)
-				return null;
-			foreach (var entity in extensions.Entities)
-			{
-				var extensionType = ResolveMacroExtensionType(node, entity as IMethod);
-				if (null != extensionType)
-					return extensionType;
-			}
+	private Statement ExpandMacroExpansion(MacroStatement node, Statement expansion)
+	{
+		if (null == expansion)
 			return null;
-		}
 
-		IEntity ResolveMacroExtensionType(MacroStatement node, IMethod extension)
+		Statement modifiedExpansion = ApplyMacroModifierToExpansion(node, expansion);
+		modifiedExpansion.InitializeParent(node.ParentNode);
+		return Visit(modifiedExpansion);
+	}
+
+	private static Statement ApplyMacroModifierToExpansion(MacroStatement node, Statement expansion)
+	{
+		if (node.Modifier == null)
+			return expansion;
+		return NormalizeStatementModifiers.CreateModifiedStatement(node.Modifier, expansion);
+	}
+
+	private void TreatMacroAsMethodInvocation(MacroStatement node)
+	{
+		var invocation = new MethodInvocationExpression(node.LexicalInfo, new ReferenceExpression(node.LexicalInfo, node.Name))
+		                 	{ Arguments = node.Arguments };
+		if (node.ContainsAnnotation("compound") || !IsNullOrEmpty(node.Body))
+			invocation.Arguments.Add(new BlockExpression(node.Body));
+		ReplaceCurrentNode(new ExpressionStatement(node.LexicalInfo, invocation, node.Modifier));
+	}
+	
+	private static bool IsNullOrEmpty(Block block)
+	{
+		return block == null || block.IsEmpty;
+	}
+
+	private Statement ExpandMacro(Type macroType, MacroStatement node)
+	{
+		var macro = (IAstMacro) Activator.CreateInstance(macroType);
+		macro.Initialize(Context);
+
+		//use new-style BOO-1077 generator macro interface if available
+		var gm = macro as IAstGeneratorMacro;
+		if (gm != null)
+			return ExpandGeneratorMacro(gm, node);
+
+		return macro.Expand(node);
+	}
+
+	private static Statement ExpandGeneratorMacro(IAstGeneratorMacro macroType, MacroStatement node)
+	{
+		IEnumerable<Node> generatedNodes = macroType.ExpandGenerator(node);
+		if (null == generatedNodes)
+			return null;
+
+		return new NodeGeneratorExpander(node).Expand(generatedNodes);
+	}
+
+	private IEntity ResolveMacroName(MacroStatement node)
+	{
+		var entity = ResolveMacroTypeName(NameResolutionService, node.Name);
+
+		if (entity is IType)
+			return entity;
+		if (entity == null)
+			return null;
+
+		//we got something interesting, check if it is/has an extension method
+		//that resolves a nested macro extension
+		return ResolveMacroExtensionType(node, entity as IMethod)
+			?? ResolveMacroExtensionType(node, entity as Ambiguous)
+			?? entity; //return as-is
+	}
+
+	/// <summary>
+	/// The type behind a macro name, by the same rules wherever one is looked up.
+	/// </summary>
+	internal static IEntity ResolveMacroTypeName(NameResolutionService nameResolution, string name)
+	{
+		return ResolvePreferringInternalMacros(nameResolution, MacroTypeNameFor(name))
+			?? ResolvePreferringInternalMacros(nameResolution, name);
+	}
+
+	private static IEntity ResolvePreferringInternalMacros(NameResolutionService nameResolution, string macroTypeName)
+	{
+		IEntity resolved = nameResolution.ResolveQualifiedName(macroTypeName);
+		Ambiguous ambiguous = resolved as Ambiguous;
+		if (null != ambiguous && ambiguous.AllEntitiesAre(EntityType.Type))
+			return Entities.PreferInternalEntitiesOverExternalOnes(ambiguous);
+		return resolved;
+	}
+
+	IEntity ResolveMacroExtensionType(MacroStatement node, Ambiguous extensions)
+	{
+		if (null == extensions)
+			return null;
+		foreach (var entity in extensions.Entities)
 		{
-			if (null == extension)
+			var extensionType = ResolveMacroExtensionType(node, entity as IMethod);
+			if (null != extensionType)
+				return extensionType;
+		}
+		return null;
+	}
+
+	IEntity ResolveMacroExtensionType(MacroStatement node, IMethod extension)
+	{
+		if (null == extension)
+			return null;
+		IType extendedMacroType = GetExtendedMacroType(extension);
+		if (null == extendedMacroType)
+			return null;
+
+		//ok now check if extension is correctly nested under parent
+		foreach (MacroStatement parent in node.GetAncestors<MacroStatement>())
+			if (ResolveMacroName(parent) == extendedMacroType)
+				return GetExtensionMacroType(extension);
+
+		return null;
+	}
+
+	IType GetExtendedMacroType(IMethod method)
+	{
+		InternalMethod internalMethod = method as InternalMethod;
+		if (null != internalMethod)
+		{
+			Method extension = internalMethod.Method;
+			if (!extension.Attributes.Contains(Types.CompilerGeneratedAttribute.FullName))
 				return null;
-			IType extendedMacroType = GetExtendedMacroType(extension);
-			if (null == extendedMacroType)
-				return null;
-
-			//ok now check if extension is correctly nested under parent
-			foreach (MacroStatement parent in node.GetAncestors<MacroStatement>())
-				if (ResolveMacroName(parent) == extendedMacroType)
-					return GetExtensionMacroType(extension);
-
-			return null;
-		}
-
-		IType GetExtendedMacroType(IMethod method)
-		{
-			InternalMethod internalMethod = method as InternalMethod;
-			if (null != internalMethod)
+			SimpleTypeReference sref = extension.Parameters[0].Type as SimpleTypeReference;
+			if (null != sref && extension.Parameters.Count == 2)
 			{
-				Method extension = internalMethod.Method;
-				if (!extension.Attributes.Contains(Types.CompilerGeneratedAttribute.FullName))
-					return null;
-				SimpleTypeReference sref = extension.Parameters[0].Type as SimpleTypeReference;
-				if (null != sref && extension.Parameters.Count == 2)
-				{
-					IType type = NameResolutionService.ResolveQualifiedName(sref.Name) as IType;
-					if (type != null && type.Name.EndsWith("Macro")) //no entity yet
-						return type;
-				}
+				IType type = NameResolutionService.ResolveQualifiedName(sref.Name) as IType;
+				if (type != null && type.Name.EndsWith("Macro")) //no entity yet
+					return type;
 			}
-			else if (method is ExternalMethod && method.IsExtension)
-			{
-				var parameters = method.GetParameters();
-				if (parameters.Length == 2 && TypeSystemServices.IsMacro(parameters[0].Type))
-					return parameters[0].Type;
-			}
-			return null;
 		}
-
-		IType GetExtensionMacroType(IMethod method)
+		else if (method is ExternalMethod && method.IsExtension)
 		{
-			InternalMethod internalMethod = method as InternalMethod;
-			if (null != internalMethod)
-			{
-				Method extension = internalMethod.Method;
-				SimpleTypeReference sref = extension.ReturnType as SimpleTypeReference;
-				if (null != sref)
-				{
-					IType type = NameResolutionService.ResolveQualifiedName(sref.Name) as IType;
-					if (type != null && type.Name.EndsWith("Macro"))//no entity yet
-						return type;
-				}
-			}
-			else if (method is ExternalMethod)
-				return method.ReturnType;
-
-			return null;
+			var parameters = method.GetParameters();
+			if (parameters.Length == 2 && TypeSystemServices.IsMacro(parameters[0].Type))
+				return parameters[0].Type;
 		}
+		return null;
+	}
 
-		private static string MacroTypeNameFor(string name)
+	IType GetExtensionMacroType(IMethod method)
+	{
+		InternalMethod internalMethod = method as InternalMethod;
+		if (null != internalMethod)
 		{
-			return char.IsUpper(name[0])
-				? name + "Macro"
-				: char.ToUpper(name[0]) + name.Substring(1) + "Macro";
+			Method extension = internalMethod.Method;
+			SimpleTypeReference sref = extension.ReturnType as SimpleTypeReference;
+			if (null != sref)
+			{
+				IType type = NameResolutionService.ResolveQualifiedName(sref.Name) as IType;
+				if (type != null && type.Name.EndsWith("Macro"))//no entity yet
+					return type;
+			}
 		}
+		else if (method is ExternalMethod)
+			return method.ReturnType;
+
+		return null;
+	}
+
+	private static string MacroTypeNameFor(string name)
+	{
+		return char.IsUpper(name[0])
+			? name + "Macro"
+			: char.ToUpper(name[0]) + name.Substring(1) + "Macro";
 	}
 }

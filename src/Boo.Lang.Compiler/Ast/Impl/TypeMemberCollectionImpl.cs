@@ -32,28 +32,27 @@
 // This file was generated automatically by astgen.boo.
 //
 
-namespace Boo.Lang.Compiler.Ast
-{
-	using System;
-	
-	[Serializable]
-	public partial class TypeMemberCollection : NodeCollection<Boo.Lang.Compiler.Ast.TypeMember>
-	{
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public static TypeMemberCollection FromArray(params Boo.Lang.Compiler.Ast.TypeMember[] items)
-		{
-			var collection = new TypeMemberCollection();
-			collection.AddRange(items);
-			return collection;
-		}
+namespace Boo.Lang.Compiler.Ast;
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Boo.Lang.Compiler.Ast.TypeMemberCollection PopRange(int begin)
-		{
-			var range = new Boo.Lang.Compiler.Ast.TypeMemberCollection(ParentNode);
-			range.InnerList.AddRange(InternalPopRange(begin));
-			return range;
-		}
+using System;
+
+[Serializable]
+public partial class TypeMemberCollection : NodeCollection<Boo.Lang.Compiler.Ast.TypeMember>
+{
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public static TypeMemberCollection FromArray(params Boo.Lang.Compiler.Ast.TypeMember[] items)
+	{
+		var collection = new TypeMemberCollection();
+		collection.AddRange(items);
+		return collection;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Boo.Lang.Compiler.Ast.TypeMemberCollection PopRange(int begin)
+	{
+		var range = new Boo.Lang.Compiler.Ast.TypeMemberCollection(ParentNode);
+		range.InnerList.AddRange(InternalPopRange(begin));
+		return range;
 	}
 }
 

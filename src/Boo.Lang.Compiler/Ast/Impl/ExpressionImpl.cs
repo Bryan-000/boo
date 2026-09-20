@@ -31,66 +31,65 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public abstract partial class Expression : Node
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public abstract partial class Expression : Node
+{
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public Expression CloneNode()
 	{
+		return (Expression)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public Expression CleanClone()
+	{
+		return (Expression)base.CleanClone();
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public Expression CloneNode()
-		{
-			return (Expression)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public Expression CleanClone()
-		{
-			return (Expression)base.CleanClone();
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( Expression)node;
+		return true;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( Expression)node;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
+		{
 			return true;
 		}
+		return false;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
-		{
-			if (base.Replace(existing, newNode))
-			{
-				return true;
-			}
-			return false;
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
-		{
-
-			throw new System.InvalidOperationException("Cannot clone abstract class: Expression");
-
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
-		{
-			_annotations = null;
-			_entity = null;
-
-		}
-	
+		throw new System.InvalidOperationException("Cannot clone abstract class: Expression");
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+
+	}
+
+
 }
 

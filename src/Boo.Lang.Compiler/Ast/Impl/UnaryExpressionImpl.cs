@@ -31,141 +31,140 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class UnaryExpression : Expression
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class UnaryExpression : Expression
+{
+	protected UnaryOperatorType _operator;
+
+	protected Expression _operand;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public UnaryExpression CloneNode()
 	{
-		protected UnaryOperatorType _operator;
+		return (UnaryExpression)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public UnaryExpression CleanClone()
+	{
+		return (UnaryExpression)base.CleanClone();
+	}
 
-		protected Expression _operand;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.UnaryExpression; }
+	}
 
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnUnaryExpression(this);
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public UnaryExpression CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( UnaryExpression)node;
+		if (_operator != other._operator) return NoMatch("UnaryExpression._operator");
+		if (!Node.Matches(_operand, other._operand)) return NoMatch("UnaryExpression._operand");
+		return true;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (UnaryExpression)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public UnaryExpression CleanClone()
-		{
-			return (UnaryExpression)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.UnaryExpression; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnUnaryExpression(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( UnaryExpression)node;
-			if (_operator != other._operator) return NoMatch("UnaryExpression._operator");
-			if (!Node.Matches(_operand, other._operand)) return NoMatch("UnaryExpression._operand");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_operand == existing)
 		{
-			if (base.Replace(existing, newNode))
-			{
-				return true;
-			}
-			if (_operand == existing)
-			{
-				this.Operand = (Expression)newNode;
-				return true;
-			}
-			return false;
+			this.Operand = (Expression)newNode;
+			return true;
 		}
+		return false;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
-		{
-		
-			UnaryExpression clone = new UnaryExpression();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			clone._expressionType = _expressionType;
-			clone._operator = _operator;
-			if (null != _operand)
-			{
-				clone._operand = _operand.Clone() as Expression;
-				clone._operand.InitializeParent(clone);
-			}
-			return clone;
-
-
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
-		{
-			_annotations = null;
-			_entity = null;
-			_expressionType = null;
-			if (null != _operand)
-			{
-				_operand.ClearTypeSystemBindings();
-			}
-
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public UnaryOperatorType Operator
+		UnaryExpression clone = new UnaryExpression();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		clone._expressionType = _expressionType;
+		clone._operator = _operator;
+		if (null != _operand)
 		{
-			
-			get { return _operator; }
-			set { _operator = value; }
-
+			clone._operand = _operand.Clone() as Expression;
+			clone._operand.InitializeParent(clone);
 		}
-		
+		return clone;
 
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Expression Operand
-		{
-			
-			get { return _operand; }
-			set
-			{
-				if (_operand != value)
-				{
-					_operand = value;
-					if (null != _operand)
-					{
-						_operand.InitializeParent(this);
-					}
-				}
-			}
-
-		}
-		
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		_expressionType = null;
+		if (null != _operand)
+		{
+			_operand.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public UnaryOperatorType Operator
+	{
+		
+		get { return _operator; }
+		set { _operator = value; }
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Expression Operand
+	{
+		
+		get { return _operand; }
+		set
+		{
+			if (_operand != value)
+			{
+				_operand = value;
+				if (null != _operand)
+				{
+					_operand.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

@@ -31,173 +31,172 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class SlicingExpression : Expression
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class SlicingExpression : Expression
+{
+	protected Expression _target;
+
+	protected SliceCollection _indices;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public SlicingExpression CloneNode()
 	{
-		protected Expression _target;
+		return (SlicingExpression)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public SlicingExpression CleanClone()
+	{
+		return (SlicingExpression)base.CleanClone();
+	}
 
-		protected SliceCollection _indices;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.SlicingExpression; }
+	}
 
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnSlicingExpression(this);
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public SlicingExpression CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( SlicingExpression)node;
+		if (!Node.Matches(_target, other._target)) return NoMatch("SlicingExpression._target");
+		if (!Node.AllMatch(_indices, other._indices)) return NoMatch("SlicingExpression._indices");
+		return true;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (SlicingExpression)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public SlicingExpression CleanClone()
-		{
-			return (SlicingExpression)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.SlicingExpression; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnSlicingExpression(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( SlicingExpression)node;
-			if (!Node.Matches(_target, other._target)) return NoMatch("SlicingExpression._target");
-			if (!Node.AllMatch(_indices, other._indices)) return NoMatch("SlicingExpression._indices");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_target == existing)
 		{
-			if (base.Replace(existing, newNode))
+			this.Target = (Expression)newNode;
+			return true;
+		}
+		if (_indices != null)
+		{
+			Slice item = existing as Slice;
+			if (null != item)
 			{
-				return true;
-			}
-			if (_target == existing)
-			{
-				this.Target = (Expression)newNode;
-				return true;
-			}
-			if (_indices != null)
-			{
-				Slice item = existing as Slice;
-				if (null != item)
+				Slice newItem = (Slice)newNode;
+				if (_indices.Replace(item, newItem))
 				{
-					Slice newItem = (Slice)newNode;
-					if (_indices.Replace(item, newItem))
-					{
-						return true;
-					}
+					return true;
 				}
 			}
-			return false;
 		}
+		return false;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
-		{
-		
-			SlicingExpression clone = new SlicingExpression();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			clone._expressionType = _expressionType;
-			if (null != _target)
-			{
-				clone._target = _target.Clone() as Expression;
-				clone._target.InitializeParent(clone);
-			}
-			if (null != _indices)
-			{
-				clone._indices = _indices.Clone() as SliceCollection;
-				clone._indices.InitializeParent(clone);
-			}
-			return clone;
-
-
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
-		{
-			_annotations = null;
-			_entity = null;
-			_expressionType = null;
-			if (null != _target)
-			{
-				_target.ClearTypeSystemBindings();
-			}
-			if (null != _indices)
-			{
-				_indices.ClearTypeSystemBindings();
-			}
-
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Expression Target
+		SlicingExpression clone = new SlicingExpression();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		clone._expressionType = _expressionType;
+		if (null != _target)
 		{
-			
-			get { return _target; }
-			set
-			{
-				if (_target != value)
-				{
-					_target = value;
-					if (null != _target)
-					{
-						_target.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._target = _target.Clone() as Expression;
+			clone._target.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlArray]
-		[System.Xml.Serialization.XmlArrayItem(typeof(Slice))]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public SliceCollection Indices
+		if (null != _indices)
 		{
-			
-
-			get { return _indices ?? (_indices = new SliceCollection(this)); }
-			set
-			{
-				if (_indices != value)
-				{
-					_indices = value;
-					if (null != _indices)
-					{
-						_indices.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._indices = _indices.Clone() as SliceCollection;
+			clone._indices.InitializeParent(clone);
 		}
-		
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		_expressionType = null;
+		if (null != _target)
+		{
+			_target.ClearTypeSystemBindings();
+		}
+		if (null != _indices)
+		{
+			_indices.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Expression Target
+	{
+		
+		get { return _target; }
+		set
+		{
+			if (_target != value)
+			{
+				_target = value;
+				if (null != _target)
+				{
+					_target.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlArray]
+	[System.Xml.Serialization.XmlArrayItem(typeof(Slice))]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public SliceCollection Indices
+	{
+		
+
+		get { return _indices ?? (_indices = new SliceCollection(this)); }
+		set
+		{
+			if (_indices != value)
+			{
+				_indices = value;
+				if (null != _indices)
+				{
+					_indices.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

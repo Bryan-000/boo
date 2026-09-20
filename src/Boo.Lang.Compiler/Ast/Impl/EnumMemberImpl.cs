@@ -31,150 +31,149 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class EnumMember : TypeMember
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class EnumMember : TypeMember
+{
+	protected Expression _initializer;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public EnumMember CloneNode()
 	{
-		protected Expression _initializer;
+		return (EnumMember)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public EnumMember CleanClone()
+	{
+		return (EnumMember)base.CleanClone();
+	}
 
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.EnumMember; }
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public EnumMember CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnEnumMember(this);
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( EnumMember)node;
+		if (_modifiers != other._modifiers) return NoMatch("EnumMember._modifiers");
+		if (_name != other._name) return NoMatch("EnumMember._name");
+		if (!Node.AllMatch(_attributes, other._attributes)) return NoMatch("EnumMember._attributes");
+		if (!Node.Matches(_initializer, other._initializer)) return NoMatch("EnumMember._initializer");
+		return true;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (EnumMember)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public EnumMember CleanClone()
-		{
-			return (EnumMember)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.EnumMember; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnEnumMember(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( EnumMember)node;
-			if (_modifiers != other._modifiers) return NoMatch("EnumMember._modifiers");
-			if (_name != other._name) return NoMatch("EnumMember._name");
-			if (!Node.AllMatch(_attributes, other._attributes)) return NoMatch("EnumMember._attributes");
-			if (!Node.Matches(_initializer, other._initializer)) return NoMatch("EnumMember._initializer");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_attributes != null)
 		{
-			if (base.Replace(existing, newNode))
+			Attribute item = existing as Attribute;
+			if (null != item)
 			{
-				return true;
-			}
-			if (_attributes != null)
-			{
-				Attribute item = existing as Attribute;
-				if (null != item)
+				Attribute newItem = (Attribute)newNode;
+				if (_attributes.Replace(item, newItem))
 				{
-					Attribute newItem = (Attribute)newNode;
-					if (_attributes.Replace(item, newItem))
-					{
-						return true;
-					}
+					return true;
 				}
 			}
-			if (_initializer == existing)
-			{
-				this.Initializer = (Expression)newNode;
-				return true;
-			}
-			return false;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
+		if (_initializer == existing)
 		{
-		
-			EnumMember clone = new EnumMember();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			clone._modifiers = _modifiers;
-			clone._name = _name;
-			if (null != _attributes)
-			{
-				clone._attributes = _attributes.Clone() as AttributeCollection;
-				clone._attributes.InitializeParent(clone);
-			}
-			if (null != _initializer)
-			{
-				clone._initializer = _initializer.Clone() as Expression;
-				clone._initializer.InitializeParent(clone);
-			}
-			return clone;
-
-
+			this.Initializer = (Expression)newNode;
+			return true;
 		}
+		return false;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
-		{
-			_annotations = null;
-			_entity = null;
-			if (null != _attributes)
-			{
-				_attributes.ClearTypeSystemBindings();
-			}
-			if (null != _initializer)
-			{
-				_initializer.ClearTypeSystemBindings();
-			}
-
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Expression Initializer
+		EnumMember clone = new EnumMember();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		clone._modifiers = _modifiers;
+		clone._name = _name;
+		if (null != _attributes)
 		{
-			
-			get { return _initializer; }
-			set
-			{
-				if (_initializer != value)
-				{
-					_initializer = value;
-					if (null != _initializer)
-					{
-						_initializer.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._attributes = _attributes.Clone() as AttributeCollection;
+			clone._attributes.InitializeParent(clone);
 		}
-		
+		if (null != _initializer)
+		{
+			clone._initializer = _initializer.Clone() as Expression;
+			clone._initializer.InitializeParent(clone);
+		}
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		if (null != _attributes)
+		{
+			_attributes.ClearTypeSystemBindings();
+		}
+		if (null != _initializer)
+		{
+			_initializer.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Expression Initializer
+	{
+		
+		get { return _initializer; }
+		set
+		{
+			if (_initializer != value)
+			{
+				_initializer = value;
+				if (null != _initializer)
+				{
+					_initializer.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

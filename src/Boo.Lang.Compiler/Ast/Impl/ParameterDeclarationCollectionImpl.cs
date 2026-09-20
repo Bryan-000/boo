@@ -32,28 +32,27 @@
 // This file was generated automatically by astgen.boo.
 //
 
-namespace Boo.Lang.Compiler.Ast
-{
-	using System;
-	
-	[Serializable]
-	public partial class ParameterDeclarationCollection : NodeCollection<Boo.Lang.Compiler.Ast.ParameterDeclaration>
-	{
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public static ParameterDeclarationCollection FromArray(params Boo.Lang.Compiler.Ast.ParameterDeclaration[] items)
-		{
-			var collection = new ParameterDeclarationCollection();
-			collection.AddRange(items);
-			return collection;
-		}
+namespace Boo.Lang.Compiler.Ast;
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Boo.Lang.Compiler.Ast.ParameterDeclarationCollection PopRange(int begin)
-		{
-			var range = new Boo.Lang.Compiler.Ast.ParameterDeclarationCollection(ParentNode);
-			range.InnerList.AddRange(InternalPopRange(begin));
-			return range;
-		}
+using System;
+
+[Serializable]
+public partial class ParameterDeclarationCollection : NodeCollection<Boo.Lang.Compiler.Ast.ParameterDeclaration>
+{
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public static ParameterDeclarationCollection FromArray(params Boo.Lang.Compiler.Ast.ParameterDeclaration[] items)
+	{
+		var collection = new ParameterDeclarationCollection();
+		collection.AddRange(items);
+		return collection;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Boo.Lang.Compiler.Ast.ParameterDeclarationCollection PopRange(int begin)
+	{
+		var range = new Boo.Lang.Compiler.Ast.ParameterDeclarationCollection(ParentNode);
+		range.InnerList.AddRange(InternalPopRange(begin));
+		return range;
 	}
 }
 

@@ -1,21 +1,21 @@
 ${header}
-namespace Boo.Lang.Compiler.Ast
-{	
-	public partial class CodeSerializer
-	{
+namespace Boo.Lang.Compiler.Ast;
+
+public partial class CodeSerializer
+{
 <%
 for item in model.GetEnums():
-%>		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public bool ShouldSerialize(${item.Name} value)
-		{
-			return (long)value != 0;
-		}
+%>	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public bool ShouldSerialize(${item.Name} value)
+	{
+		return (long)value != 0;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Expression Serialize(${item.Name} value)
-		{
-			return SerializeEnum("${item.Name}", (long)value);
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Expression Serialize(${item.Name} value)
+	{
+		return SerializeEnum("${item.Name}", (long)value);
+	}
 
 <%
 end
@@ -33,41 +33,40 @@ for item in model.GetConcreteAstNodes():
 		methodDeclaration = "override public void On" + item.Name
 	end
 
-%>		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		${methodDeclaration}(${itemType} node)
-		{
-			MethodInvocationExpression mie = new MethodInvocationExpression(
-					node.LexicalInfo,
-					CreateReference(node, "${itemType}"));
-			mie.Arguments.Add(Serialize(node.LexicalInfo));
+%>	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	${methodDeclaration}(${itemType} node)
+	{
+		MethodInvocationExpression mie = new MethodInvocationExpression(
+				node.LexicalInfo,
+				CreateReference(node, "${itemType}"));
+		mie.Arguments.Add(Serialize(node.LexicalInfo));
 <%
 	for field in fields:
 	
-%>			if (ShouldSerialize(node.${field.Name}))
-			{
+%>		if (ShouldSerialize(node.${field.Name}))
+		{
 <%
 		if model.IsCollectionField(field):
 			
-%>				mie.NamedArguments.Add(
-					new ExpressionPair(
-						CreateReference(node, "${field.Name}"),
-						SerializeCollection(node, "Boo.Lang.Compiler.Ast.${field.Type}", node.${field.Name})));
+%>			mie.NamedArguments.Add(
+				new ExpressionPair(
+					CreateReference(node, "${field.Name}"),
+					SerializeCollection(node, "Boo.Lang.Compiler.Ast.${field.Type}", node.${field.Name})));
 <%		else:
 
-%>				mie.NamedArguments.Add(
-					new ExpressionPair(
-						CreateReference(node, "${field.Name}"),
-						Serialize(node.${field.Name})));
+%>			mie.NamedArguments.Add(
+				new ExpressionPair(
+					CreateReference(node, "${field.Name}"),
+					Serialize(node.${field.Name})));
 <%
 		end
-%>			}
+%>		}
 <%
 	end
-%>			Push(mie);
-		}
+%>		Push(mie);
+	}
 
 <%
 end
-%>	}
-}
+%>}
 

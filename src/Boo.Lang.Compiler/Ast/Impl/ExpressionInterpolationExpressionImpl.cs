@@ -31,135 +31,134 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class ExpressionInterpolationExpression : Expression
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class ExpressionInterpolationExpression : Expression
+{
+	protected ExpressionCollection _expressions;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public ExpressionInterpolationExpression CloneNode()
 	{
-		protected ExpressionCollection _expressions;
+		return (ExpressionInterpolationExpression)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public ExpressionInterpolationExpression CleanClone()
+	{
+		return (ExpressionInterpolationExpression)base.CleanClone();
+	}
 
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.ExpressionInterpolationExpression; }
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public ExpressionInterpolationExpression CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnExpressionInterpolationExpression(this);
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( ExpressionInterpolationExpression)node;
+		if (!Node.AllMatch(_expressions, other._expressions)) return NoMatch("ExpressionInterpolationExpression._expressions");
+		return true;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (ExpressionInterpolationExpression)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public ExpressionInterpolationExpression CleanClone()
-		{
-			return (ExpressionInterpolationExpression)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.ExpressionInterpolationExpression; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnExpressionInterpolationExpression(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( ExpressionInterpolationExpression)node;
-			if (!Node.AllMatch(_expressions, other._expressions)) return NoMatch("ExpressionInterpolationExpression._expressions");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_expressions != null)
 		{
-			if (base.Replace(existing, newNode))
+			Expression item = existing as Expression;
+			if (null != item)
 			{
-				return true;
-			}
-			if (_expressions != null)
-			{
-				Expression item = existing as Expression;
-				if (null != item)
+				Expression newItem = (Expression)newNode;
+				if (_expressions.Replace(item, newItem))
 				{
-					Expression newItem = (Expression)newNode;
-					if (_expressions.Replace(item, newItem))
-					{
-						return true;
-					}
+					return true;
 				}
 			}
-			return false;
 		}
+		return false;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
-		{
-		
-			ExpressionInterpolationExpression clone = new ExpressionInterpolationExpression();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			clone._expressionType = _expressionType;
-			if (null != _expressions)
-			{
-				clone._expressions = _expressions.Clone() as ExpressionCollection;
-				clone._expressions.InitializeParent(clone);
-			}
-			return clone;
-
-
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
-		{
-			_annotations = null;
-			_entity = null;
-			_expressionType = null;
-			if (null != _expressions)
-			{
-				_expressions.ClearTypeSystemBindings();
-			}
-
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlArray]
-		[System.Xml.Serialization.XmlArrayItem(typeof(Expression))]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public ExpressionCollection Expressions
+		ExpressionInterpolationExpression clone = new ExpressionInterpolationExpression();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		clone._expressionType = _expressionType;
+		if (null != _expressions)
 		{
-			
-
-			get { return _expressions ?? (_expressions = new ExpressionCollection(this)); }
-			set
-			{
-				if (_expressions != value)
-				{
-					_expressions = value;
-					if (null != _expressions)
-					{
-						_expressions.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._expressions = _expressions.Clone() as ExpressionCollection;
+			clone._expressions.InitializeParent(clone);
 		}
-		
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		_expressionType = null;
+		if (null != _expressions)
+		{
+			_expressions.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlArray]
+	[System.Xml.Serialization.XmlArrayItem(typeof(Expression))]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public ExpressionCollection Expressions
+	{
+		
+
+		get { return _expressions ?? (_expressions = new ExpressionCollection(this)); }
+		set
+		{
+			if (_expressions != value)
+			{
+				_expressions = value;
+				if (null != _expressions)
+				{
+					_expressions.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

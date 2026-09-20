@@ -31,135 +31,134 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class ExtendedGeneratorExpression : Expression
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class ExtendedGeneratorExpression : Expression
+{
+	protected GeneratorExpressionCollection _items;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public ExtendedGeneratorExpression CloneNode()
 	{
-		protected GeneratorExpressionCollection _items;
+		return (ExtendedGeneratorExpression)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public ExtendedGeneratorExpression CleanClone()
+	{
+		return (ExtendedGeneratorExpression)base.CleanClone();
+	}
 
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.ExtendedGeneratorExpression; }
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public ExtendedGeneratorExpression CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnExtendedGeneratorExpression(this);
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( ExtendedGeneratorExpression)node;
+		if (!Node.AllMatch(_items, other._items)) return NoMatch("ExtendedGeneratorExpression._items");
+		return true;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (ExtendedGeneratorExpression)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public ExtendedGeneratorExpression CleanClone()
-		{
-			return (ExtendedGeneratorExpression)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.ExtendedGeneratorExpression; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnExtendedGeneratorExpression(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( ExtendedGeneratorExpression)node;
-			if (!Node.AllMatch(_items, other._items)) return NoMatch("ExtendedGeneratorExpression._items");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_items != null)
 		{
-			if (base.Replace(existing, newNode))
+			GeneratorExpression item = existing as GeneratorExpression;
+			if (null != item)
 			{
-				return true;
-			}
-			if (_items != null)
-			{
-				GeneratorExpression item = existing as GeneratorExpression;
-				if (null != item)
+				GeneratorExpression newItem = (GeneratorExpression)newNode;
+				if (_items.Replace(item, newItem))
 				{
-					GeneratorExpression newItem = (GeneratorExpression)newNode;
-					if (_items.Replace(item, newItem))
-					{
-						return true;
-					}
+					return true;
 				}
 			}
-			return false;
 		}
+		return false;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
-		{
-		
-			ExtendedGeneratorExpression clone = new ExtendedGeneratorExpression();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			clone._expressionType = _expressionType;
-			if (null != _items)
-			{
-				clone._items = _items.Clone() as GeneratorExpressionCollection;
-				clone._items.InitializeParent(clone);
-			}
-			return clone;
-
-
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
-		{
-			_annotations = null;
-			_entity = null;
-			_expressionType = null;
-			if (null != _items)
-			{
-				_items.ClearTypeSystemBindings();
-			}
-
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlArray]
-		[System.Xml.Serialization.XmlArrayItem(typeof(GeneratorExpression))]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public GeneratorExpressionCollection Items
+		ExtendedGeneratorExpression clone = new ExtendedGeneratorExpression();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		clone._expressionType = _expressionType;
+		if (null != _items)
 		{
-			
-
-			get { return _items ?? (_items = new GeneratorExpressionCollection(this)); }
-			set
-			{
-				if (_items != value)
-				{
-					_items = value;
-					if (null != _items)
-					{
-						_items.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._items = _items.Clone() as GeneratorExpressionCollection;
+			clone._items.InitializeParent(clone);
 		}
-		
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		_expressionType = null;
+		if (null != _items)
+		{
+			_items.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlArray]
+	[System.Xml.Serialization.XmlArrayItem(typeof(GeneratorExpression))]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public GeneratorExpressionCollection Items
+	{
+		
+
+		get { return _items ?? (_items = new GeneratorExpressionCollection(this)); }
+		set
+		{
+			if (_items != value)
+			{
+				_items = value;
+				if (null != _items)
+				{
+					_items.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

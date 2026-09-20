@@ -32,19 +32,18 @@
 // This file was generated automatically by astgen.boo.
 //
 
-namespace Boo.Lang.Compiler.Ast
-{
-	using System;
+namespace Boo.Lang.Compiler.Ast;
 
-	[Serializable]
-	[Flags]
-	public enum GenericParameterConstraints
-	{
-		None = 0,
-		ValueType = 1,
-		ReferenceType = 2,
-		Constructable = 4,
-		Covariant = 8,
-		Contravariant = 16
-	}
+using System;
+
+[Serializable]
+[Flags]
+public enum GenericParameterConstraints
+{
+	None = 0,
+	ValueType = 1,
+	ReferenceType = 2,
+	Constructable = 4,
+	Covariant = 8,
+	Contravariant = 16
 }

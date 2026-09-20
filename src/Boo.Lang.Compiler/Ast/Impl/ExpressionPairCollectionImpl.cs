@@ -32,28 +32,27 @@
 // This file was generated automatically by astgen.boo.
 //
 
-namespace Boo.Lang.Compiler.Ast
-{
-	using System;
-	
-	[Serializable]
-	public partial class ExpressionPairCollection : NodeCollection<Boo.Lang.Compiler.Ast.ExpressionPair>
-	{
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public static ExpressionPairCollection FromArray(params Boo.Lang.Compiler.Ast.ExpressionPair[] items)
-		{
-			var collection = new ExpressionPairCollection();
-			collection.AddRange(items);
-			return collection;
-		}
+namespace Boo.Lang.Compiler.Ast;
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Boo.Lang.Compiler.Ast.ExpressionPairCollection PopRange(int begin)
-		{
-			var range = new Boo.Lang.Compiler.Ast.ExpressionPairCollection(ParentNode);
-			range.InnerList.AddRange(InternalPopRange(begin));
-			return range;
-		}
+using System;
+
+[Serializable]
+public partial class ExpressionPairCollection : NodeCollection<Boo.Lang.Compiler.Ast.ExpressionPair>
+{
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public static ExpressionPairCollection FromArray(params Boo.Lang.Compiler.Ast.ExpressionPair[] items)
+	{
+		var collection = new ExpressionPairCollection();
+		collection.AddRange(items);
+		return collection;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Boo.Lang.Compiler.Ast.ExpressionPairCollection PopRange(int begin)
+	{
+		var range = new Boo.Lang.Compiler.Ast.ExpressionPairCollection(ParentNode);
+		range.InnerList.AddRange(InternalPopRange(begin));
+		return range;
 	}
 }
 

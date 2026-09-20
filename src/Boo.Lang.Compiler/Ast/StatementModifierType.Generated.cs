@@ -32,16 +32,15 @@
 // This file was generated automatically by astgen.boo.
 //
 
-namespace Boo.Lang.Compiler.Ast
-{
-	using System;
+namespace Boo.Lang.Compiler.Ast;
 
-	[Serializable]
-	public enum StatementModifierType
-	{
-		None,
-		If,
-		Unless,
-		While
-	}
+using System;
+
+[Serializable]
+public enum StatementModifierType
+{
+	None,
+	If,
+	Unless,
+	While
 }

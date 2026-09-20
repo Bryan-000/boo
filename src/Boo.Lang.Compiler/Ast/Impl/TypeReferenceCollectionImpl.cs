@@ -32,28 +32,27 @@
 // This file was generated automatically by astgen.boo.
 //
 
-namespace Boo.Lang.Compiler.Ast
-{
-	using System;
-	
-	[Serializable]
-	public partial class TypeReferenceCollection : NodeCollection<Boo.Lang.Compiler.Ast.TypeReference>
-	{
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public static TypeReferenceCollection FromArray(params Boo.Lang.Compiler.Ast.TypeReference[] items)
-		{
-			var collection = new TypeReferenceCollection();
-			collection.AddRange(items);
-			return collection;
-		}
+namespace Boo.Lang.Compiler.Ast;
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Boo.Lang.Compiler.Ast.TypeReferenceCollection PopRange(int begin)
-		{
-			var range = new Boo.Lang.Compiler.Ast.TypeReferenceCollection(ParentNode);
-			range.InnerList.AddRange(InternalPopRange(begin));
-			return range;
-		}
+using System;
+
+[Serializable]
+public partial class TypeReferenceCollection : NodeCollection<Boo.Lang.Compiler.Ast.TypeReference>
+{
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public static TypeReferenceCollection FromArray(params Boo.Lang.Compiler.Ast.TypeReference[] items)
+	{
+		var collection = new TypeReferenceCollection();
+		collection.AddRange(items);
+		return collection;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Boo.Lang.Compiler.Ast.TypeReferenceCollection PopRange(int begin)
+	{
+		var range = new Boo.Lang.Compiler.Ast.TypeReferenceCollection(ParentNode);
+		range.InnerList.AddRange(InternalPopRange(begin));
+		return range;
 	}
 }
 

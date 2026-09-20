@@ -32,28 +32,27 @@
 // This file was generated automatically by astgen.boo.
 //
 
-namespace Boo.Lang.Compiler.Ast
-{
-	using System;
-	
-	[Serializable]
-	public partial class GenericParameterDeclarationCollection : NodeCollection<Boo.Lang.Compiler.Ast.GenericParameterDeclaration>
-	{
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public static GenericParameterDeclarationCollection FromArray(params Boo.Lang.Compiler.Ast.GenericParameterDeclaration[] items)
-		{
-			var collection = new GenericParameterDeclarationCollection();
-			collection.AddRange(items);
-			return collection;
-		}
+namespace Boo.Lang.Compiler.Ast;
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Boo.Lang.Compiler.Ast.GenericParameterDeclarationCollection PopRange(int begin)
-		{
-			var range = new Boo.Lang.Compiler.Ast.GenericParameterDeclarationCollection(ParentNode);
-			range.InnerList.AddRange(InternalPopRange(begin));
-			return range;
-		}
+using System;
+
+[Serializable]
+public partial class GenericParameterDeclarationCollection : NodeCollection<Boo.Lang.Compiler.Ast.GenericParameterDeclaration>
+{
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public static GenericParameterDeclarationCollection FromArray(params Boo.Lang.Compiler.Ast.GenericParameterDeclaration[] items)
+	{
+		var collection = new GenericParameterDeclarationCollection();
+		collection.AddRange(items);
+		return collection;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Boo.Lang.Compiler.Ast.GenericParameterDeclarationCollection PopRange(int begin)
+	{
+		var range = new Boo.Lang.Compiler.Ast.GenericParameterDeclarationCollection(ParentNode);
+		range.InnerList.AddRange(InternalPopRange(begin));
+		return range;
 	}
 }
 

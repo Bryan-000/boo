@@ -31,164 +31,163 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class CastExpression : Expression
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class CastExpression : Expression
+{
+	protected Expression _target;
+
+	protected TypeReference _type;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public CastExpression CloneNode()
 	{
-		protected Expression _target;
+		return (CastExpression)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public CastExpression CleanClone()
+	{
+		return (CastExpression)base.CleanClone();
+	}
 
-		protected TypeReference _type;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.CastExpression; }
+	}
 
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnCastExpression(this);
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public CastExpression CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( CastExpression)node;
+		if (!Node.Matches(_target, other._target)) return NoMatch("CastExpression._target");
+		if (!Node.Matches(_type, other._type)) return NoMatch("CastExpression._type");
+		return true;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (CastExpression)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public CastExpression CleanClone()
-		{
-			return (CastExpression)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.CastExpression; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnCastExpression(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( CastExpression)node;
-			if (!Node.Matches(_target, other._target)) return NoMatch("CastExpression._target");
-			if (!Node.Matches(_type, other._type)) return NoMatch("CastExpression._type");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_target == existing)
 		{
-			if (base.Replace(existing, newNode))
-			{
-				return true;
-			}
-			if (_target == existing)
-			{
-				this.Target = (Expression)newNode;
-				return true;
-			}
-			if (_type == existing)
-			{
-				this.Type = (TypeReference)newNode;
-				return true;
-			}
-			return false;
+			this.Target = (Expression)newNode;
+			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
+		if (_type == existing)
 		{
-		
-			CastExpression clone = new CastExpression();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			clone._expressionType = _expressionType;
-			if (null != _target)
-			{
-				clone._target = _target.Clone() as Expression;
-				clone._target.InitializeParent(clone);
-			}
-			if (null != _type)
-			{
-				clone._type = _type.Clone() as TypeReference;
-				clone._type.InitializeParent(clone);
-			}
-			return clone;
-
-
+			this.Type = (TypeReference)newNode;
+			return true;
 		}
+		return false;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
-		{
-			_annotations = null;
-			_entity = null;
-			_expressionType = null;
-			if (null != _target)
-			{
-				_target.ClearTypeSystemBindings();
-			}
-			if (null != _type)
-			{
-				_type.ClearTypeSystemBindings();
-			}
-
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Expression Target
+		CastExpression clone = new CastExpression();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		clone._expressionType = _expressionType;
+		if (null != _target)
 		{
-			
-			get { return _target; }
-			set
-			{
-				if (_target != value)
-				{
-					_target = value;
-					if (null != _target)
-					{
-						_target.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._target = _target.Clone() as Expression;
+			clone._target.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public TypeReference Type
+		if (null != _type)
 		{
-			
-			get { return _type; }
-			set
-			{
-				if (_type != value)
-				{
-					_type = value;
-					if (null != _type)
-					{
-						_type.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._type = _type.Clone() as TypeReference;
+			clone._type.InitializeParent(clone);
 		}
-		
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		_expressionType = null;
+		if (null != _target)
+		{
+			_target.ClearTypeSystemBindings();
+		}
+		if (null != _type)
+		{
+			_type.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Expression Target
+	{
+		
+		get { return _target; }
+		set
+		{
+			if (_target != value)
+			{
+				_target = value;
+				if (null != _target)
+				{
+					_target.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public TypeReference Type
+	{
+		
+		get { return _type; }
+		set
+		{
+			if (_type != value)
+			{
+				_type = value;
+				if (null != _type)
+				{
+					_type.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

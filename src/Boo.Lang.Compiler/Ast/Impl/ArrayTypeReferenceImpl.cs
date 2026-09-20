@@ -31,164 +31,163 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class ArrayTypeReference : TypeReference
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class ArrayTypeReference : TypeReference
+{
+	protected TypeReference _elementType;
+
+	protected IntegerLiteralExpression _rank;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public ArrayTypeReference CloneNode()
 	{
-		protected TypeReference _elementType;
+		return (ArrayTypeReference)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public ArrayTypeReference CleanClone()
+	{
+		return (ArrayTypeReference)base.CleanClone();
+	}
 
-		protected IntegerLiteralExpression _rank;
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.ArrayTypeReference; }
+	}
 
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnArrayTypeReference(this);
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public ArrayTypeReference CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( ArrayTypeReference)node;
+		if (_isPointer != other._isPointer) return NoMatch("ArrayTypeReference._isPointer");
+		if (!Node.Matches(_elementType, other._elementType)) return NoMatch("ArrayTypeReference._elementType");
+		if (!Node.Matches(_rank, other._rank)) return NoMatch("ArrayTypeReference._rank");
+		return true;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (ArrayTypeReference)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public ArrayTypeReference CleanClone()
-		{
-			return (ArrayTypeReference)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.ArrayTypeReference; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnArrayTypeReference(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( ArrayTypeReference)node;
-			if (_isPointer != other._isPointer) return NoMatch("ArrayTypeReference._isPointer");
-			if (!Node.Matches(_elementType, other._elementType)) return NoMatch("ArrayTypeReference._elementType");
-			if (!Node.Matches(_rank, other._rank)) return NoMatch("ArrayTypeReference._rank");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_elementType == existing)
 		{
-			if (base.Replace(existing, newNode))
-			{
-				return true;
-			}
-			if (_elementType == existing)
-			{
-				this.ElementType = (TypeReference)newNode;
-				return true;
-			}
-			if (_rank == existing)
-			{
-				this.Rank = (IntegerLiteralExpression)newNode;
-				return true;
-			}
-			return false;
+			this.ElementType = (TypeReference)newNode;
+			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
+		if (_rank == existing)
 		{
-		
-			ArrayTypeReference clone = new ArrayTypeReference();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			clone._isPointer = _isPointer;
-			if (null != _elementType)
-			{
-				clone._elementType = _elementType.Clone() as TypeReference;
-				clone._elementType.InitializeParent(clone);
-			}
-			if (null != _rank)
-			{
-				clone._rank = _rank.Clone() as IntegerLiteralExpression;
-				clone._rank.InitializeParent(clone);
-			}
-			return clone;
-
-
+			this.Rank = (IntegerLiteralExpression)newNode;
+			return true;
 		}
+		return false;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
-		{
-			_annotations = null;
-			_entity = null;
-			if (null != _elementType)
-			{
-				_elementType.ClearTypeSystemBindings();
-			}
-			if (null != _rank)
-			{
-				_rank.ClearTypeSystemBindings();
-			}
-
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public TypeReference ElementType
+		ArrayTypeReference clone = new ArrayTypeReference();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		clone._isPointer = _isPointer;
+		if (null != _elementType)
 		{
-			
-			get { return _elementType; }
-			set
-			{
-				if (_elementType != value)
-				{
-					_elementType = value;
-					if (null != _elementType)
-					{
-						_elementType.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._elementType = _elementType.Clone() as TypeReference;
+			clone._elementType.InitializeParent(clone);
 		}
-		
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public IntegerLiteralExpression Rank
+		if (null != _rank)
 		{
-			
-			get { return _rank; }
-			set
-			{
-				if (_rank != value)
-				{
-					_rank = value;
-					if (null != _rank)
-					{
-						_rank.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._rank = _rank.Clone() as IntegerLiteralExpression;
+			clone._rank.InitializeParent(clone);
 		}
-		
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		if (null != _elementType)
+		{
+			_elementType.ClearTypeSystemBindings();
+		}
+		if (null != _rank)
+		{
+			_rank.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public TypeReference ElementType
+	{
+		
+		get { return _elementType; }
+		set
+		{
+			if (_elementType != value)
+			{
+				_elementType = value;
+				if (null != _elementType)
+				{
+					_elementType.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public IntegerLiteralExpression Rank
+	{
+		
+		get { return _rank; }
+		set
+		{
+			if (_rank != value)
+			{
+				_rank = value;
+				if (null != _rank)
+				{
+					_rank.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

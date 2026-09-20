@@ -31,109 +31,108 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public abstract partial class ConditionalStatement : Statement
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public abstract partial class ConditionalStatement : Statement
+{
+	protected Expression _condition;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public ConditionalStatement CloneNode()
 	{
-		protected Expression _condition;
+		return (ConditionalStatement)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public ConditionalStatement CleanClone()
+	{
+		return (ConditionalStatement)base.CleanClone();
+	}
 
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( ConditionalStatement)node;
+		if (!Node.Matches(_modifier, other._modifier)) return NoMatch("ConditionalStatement._modifier");
+		if (!Node.Matches(_condition, other._condition)) return NoMatch("ConditionalStatement._condition");
+		return true;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public ConditionalStatement CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (ConditionalStatement)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public ConditionalStatement CleanClone()
-		{
-			return (ConditionalStatement)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( ConditionalStatement)node;
-			if (!Node.Matches(_modifier, other._modifier)) return NoMatch("ConditionalStatement._modifier");
-			if (!Node.Matches(_condition, other._condition)) return NoMatch("ConditionalStatement._condition");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_modifier == existing)
 		{
-			if (base.Replace(existing, newNode))
-			{
-				return true;
-			}
-			if (_modifier == existing)
-			{
-				this.Modifier = (StatementModifier)newNode;
-				return true;
-			}
-			if (_condition == existing)
-			{
-				this.Condition = (Expression)newNode;
-				return true;
-			}
-			return false;
+			this.Modifier = (StatementModifier)newNode;
+			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
+		if (_condition == existing)
 		{
-
-			throw new System.InvalidOperationException("Cannot clone abstract class: ConditionalStatement");
-
+			this.Condition = (Expression)newNode;
+			return true;
 		}
+		return false;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
-		{
-			_annotations = null;
-			_entity = null;
-			if (null != _modifier)
-			{
-				_modifier.ClearTypeSystemBindings();
-			}
-			if (null != _condition)
-			{
-				_condition.ClearTypeSystemBindings();
-			}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 
-		}
-	
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public Expression Condition
-		{
-			
-			get { return _condition; }
-			set
-			{
-				if (_condition != value)
-				{
-					_condition = value;
-					if (null != _condition)
-					{
-						_condition.InitializeParent(this);
-					}
-				}
-			}
-
-		}
-		
+		throw new System.InvalidOperationException("Cannot clone abstract class: ConditionalStatement");
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		if (null != _modifier)
+		{
+			_modifier.ClearTypeSystemBindings();
+		}
+		if (null != _condition)
+		{
+			_condition.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public Expression Condition
+	{
+		
+		get { return _condition; }
+		set
+		{
+			if (_condition != value)
+			{
+				_condition = value;
+				if (null != _condition)
+				{
+					_condition.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

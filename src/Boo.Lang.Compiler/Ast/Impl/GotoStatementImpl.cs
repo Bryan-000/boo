@@ -31,139 +31,138 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class GotoStatement : Statement
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class GotoStatement : Statement
+{
+	protected ReferenceExpression _label;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public GotoStatement CloneNode()
 	{
-		protected ReferenceExpression _label;
+		return (GotoStatement)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public GotoStatement CleanClone()
+	{
+		return (GotoStatement)base.CleanClone();
+	}
 
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.GotoStatement; }
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public GotoStatement CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnGotoStatement(this);
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( GotoStatement)node;
+		if (!Node.Matches(_modifier, other._modifier)) return NoMatch("GotoStatement._modifier");
+		if (!Node.Matches(_label, other._label)) return NoMatch("GotoStatement._label");
+		return true;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (GotoStatement)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public GotoStatement CleanClone()
-		{
-			return (GotoStatement)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.GotoStatement; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnGotoStatement(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( GotoStatement)node;
-			if (!Node.Matches(_modifier, other._modifier)) return NoMatch("GotoStatement._modifier");
-			if (!Node.Matches(_label, other._label)) return NoMatch("GotoStatement._label");
 			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
+		if (_modifier == existing)
 		{
-			if (base.Replace(existing, newNode))
-			{
-				return true;
-			}
-			if (_modifier == existing)
-			{
-				this.Modifier = (StatementModifier)newNode;
-				return true;
-			}
-			if (_label == existing)
-			{
-				this.Label = (ReferenceExpression)newNode;
-				return true;
-			}
-			return false;
+			this.Modifier = (StatementModifier)newNode;
+			return true;
 		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
+		if (_label == existing)
 		{
-		
-			GotoStatement clone = new GotoStatement();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			if (null != _modifier)
-			{
-				clone._modifier = _modifier.Clone() as StatementModifier;
-				clone._modifier.InitializeParent(clone);
-			}
-			if (null != _label)
-			{
-				clone._label = _label.Clone() as ReferenceExpression;
-				clone._label.InitializeParent(clone);
-			}
-			return clone;
-
-
+			this.Label = (ReferenceExpression)newNode;
+			return true;
 		}
+		return false;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
-		{
-			_annotations = null;
-			_entity = null;
-			if (null != _modifier)
-			{
-				_modifier.ClearTypeSystemBindings();
-			}
-			if (null != _label)
-			{
-				_label.ClearTypeSystemBindings();
-			}
-
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
-
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public ReferenceExpression Label
+		GotoStatement clone = new GotoStatement();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		if (null != _modifier)
 		{
-			
-			get { return _label; }
-			set
-			{
-				if (_label != value)
-				{
-					_label = value;
-					if (null != _label)
-					{
-						_label.InitializeParent(this);
-					}
-				}
-			}
-
+			clone._modifier = _modifier.Clone() as StatementModifier;
+			clone._modifier.InitializeParent(clone);
 		}
-		
+		if (null != _label)
+		{
+			clone._label = _label.Clone() as ReferenceExpression;
+			clone._label.InitializeParent(clone);
+		}
+		return clone;
+
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+		if (null != _modifier)
+		{
+			_modifier.ClearTypeSystemBindings();
+		}
+		if (null != _label)
+		{
+			_label.ClearTypeSystemBindings();
+		}
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public ReferenceExpression Label
+	{
+		
+		get { return _label; }
+		set
+		{
+			if (_label != value)
+			{
+				_label = value;
+				if (null != _label)
+				{
+					_label.InitializeParent(this);
+				}
+			}
+		}
+
+	}
+	
+
 }
 

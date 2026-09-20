@@ -32,27 +32,26 @@
 // This file was generated automatically by astgen.boo.
 //
 
-namespace Boo.Lang.Compiler.Ast
-{
-	using System;
+namespace Boo.Lang.Compiler.Ast;
 
-	[Serializable]
-	[Flags]
-	public enum TypeMemberModifiers
-	{
-		None = 0,
-		Private = 1,
-		Internal = 2,
-		Protected = 4,
-		Public = 8,
-		Transient = 16,
-		Static = 32,
-		Final = 64,
-		Virtual = 128,
-		Override = 256,
-		Abstract = 512,
-		Partial = 1024,
-		New = 2048,
-		VisibilityMask = 15
-	}
+using System;
+
+[Serializable]
+[Flags]
+public enum TypeMemberModifiers
+{
+	None = 0,
+	Private = 1,
+	Internal = 2,
+	Protected = 4,
+	Public = 8,
+	Transient = 16,
+	Static = 32,
+	Final = 64,
+	Virtual = 128,
+	Override = 256,
+	Abstract = 512,
+	Partial = 1024,
+	New = 2048,
+	VisibilityMask = 15
 }

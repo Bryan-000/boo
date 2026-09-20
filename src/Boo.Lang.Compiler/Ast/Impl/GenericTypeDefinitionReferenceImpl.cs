@@ -31,105 +31,104 @@
 //
 // This file was generated automatically by astgen.boo.
 //
-namespace Boo.Lang.Compiler.Ast
-{	
-	using System.Collections;
-	using System.Runtime.Serialization;
-	
-	[System.Serializable]
-	public partial class GenericTypeDefinitionReference : SimpleTypeReference
+namespace Boo.Lang.Compiler.Ast;
+
+using System.Collections;
+using System.Runtime.Serialization;
+
+[System.Serializable]
+public partial class GenericTypeDefinitionReference : SimpleTypeReference
+{
+	protected int _genericPlaceholders;
+
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public GenericTypeDefinitionReference CloneNode()
 	{
-		protected int _genericPlaceholders;
+		return (GenericTypeDefinitionReference)Clone();
+	}
+	
+	/// <summary>
+	/// <see cref="Node.CleanClone"/>
+	/// </summary>
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	new public GenericTypeDefinitionReference CleanClone()
+	{
+		return (GenericTypeDefinitionReference)base.CleanClone();
+	}
 
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public NodeType NodeType
+	{
+		get { return NodeType.GenericTypeDefinitionReference; }
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public GenericTypeDefinitionReference CloneNode()
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public void Accept(IAstVisitor visitor)
+	{
+		visitor.OnGenericTypeDefinitionReference(this);
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Matches(Node node)
+	{	
+		if (node == null) return false;
+		if (NodeType != node.NodeType) return false;
+		var other = ( GenericTypeDefinitionReference)node;
+		if (_isPointer != other._isPointer) return NoMatch("GenericTypeDefinitionReference._isPointer");
+		if (_name != other._name) return NoMatch("GenericTypeDefinitionReference._name");
+		if (_genericPlaceholders != other._genericPlaceholders) return NoMatch("GenericTypeDefinitionReference._genericPlaceholders");
+		return true;
+	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public bool Replace(Node existing, Node newNode)
+	{
+		if (base.Replace(existing, newNode))
 		{
-			return (GenericTypeDefinitionReference)Clone();
-		}
-		
-		/// <summary>
-		/// <see cref="Node.CleanClone"/>
-		/// </summary>
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		new public GenericTypeDefinitionReference CleanClone()
-		{
-			return (GenericTypeDefinitionReference)base.CleanClone();
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public NodeType NodeType
-		{
-			get { return NodeType.GenericTypeDefinitionReference; }
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public void Accept(IAstVisitor visitor)
-		{
-			visitor.OnGenericTypeDefinitionReference(this);
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Matches(Node node)
-		{	
-			if (node == null) return false;
-			if (NodeType != node.NodeType) return false;
-			var other = ( GenericTypeDefinitionReference)node;
-			if (_isPointer != other._isPointer) return NoMatch("GenericTypeDefinitionReference._isPointer");
-			if (_name != other._name) return NoMatch("GenericTypeDefinitionReference._name");
-			if (_genericPlaceholders != other._genericPlaceholders) return NoMatch("GenericTypeDefinitionReference._genericPlaceholders");
 			return true;
 		}
+		return false;
+	}
 
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public bool Replace(Node existing, Node newNode)
-		{
-			if (base.Replace(existing, newNode))
-			{
-				return true;
-			}
-			return false;
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override public object Clone()
-		{
-		
-			GenericTypeDefinitionReference clone = new GenericTypeDefinitionReference();
-			clone._lexicalInfo = _lexicalInfo;
-			clone._endSourceLocation = _endSourceLocation;
-			clone._documentation = _documentation;
-			clone._isSynthetic = _isSynthetic;
-			clone._entity = _entity;
-			if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
-			clone._isPointer = _isPointer;
-			clone._name = _name;
-			clone._genericPlaceholders = _genericPlaceholders;
-			return clone;
-
-
-		}
-
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		override internal void ClearTypeSystemBindings()
-		{
-			_annotations = null;
-			_entity = null;
-
-		}
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override public object Clone()
+	{
 	
+		GenericTypeDefinitionReference clone = new GenericTypeDefinitionReference();
+		clone._lexicalInfo = _lexicalInfo;
+		clone._endSourceLocation = _endSourceLocation;
+		clone._documentation = _documentation;
+		clone._isSynthetic = _isSynthetic;
+		clone._entity = _entity;
+		if (_annotations != null) clone._annotations = (Hashtable)_annotations.Clone();
+		clone._isPointer = _isPointer;
+		clone._name = _name;
+		clone._genericPlaceholders = _genericPlaceholders;
+		return clone;
 
-		[System.Xml.Serialization.XmlElement]
-		[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
-		public int GenericPlaceholders
-		{
-			
-			get { return _genericPlaceholders; }
-			set { _genericPlaceholders = value; }
-
-		}
-		
 
 	}
+
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	override internal void ClearTypeSystemBindings()
+	{
+		_annotations = null;
+		_entity = null;
+
+	}
+
+
+	[System.Xml.Serialization.XmlElement]
+	[System.CodeDom.Compiler.GeneratedCodeAttribute("astgen.boo", "1")]
+	public int GenericPlaceholders
+	{
+		
+		get { return _genericPlaceholders; }
+		set { _genericPlaceholders = value; }
+
+	}
+	
+
 }
 
