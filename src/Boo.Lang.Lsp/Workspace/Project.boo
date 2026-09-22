@@ -35,6 +35,7 @@ import System.Xml
 import Boo.Lang.Lsp.Json
 import Boo.Lang.Parser
 import System.Text.Json.Nodes
+import System.Text.RegularExpressions
 
 class Project:
 """
@@ -76,7 +77,14 @@ the first step out of that.
 		parsed as Uri
 		return null if not Uri.TryCreate(uri, UriKind.Absolute, parsed)
 		return null if not parsed.IsFile
-		return parsed.LocalPath
+
+		path = parsed.LocalPath
+		if (OperatingSystem.IsWindows() and Regex.IsMatch(path, """^(/|\\)[a-zA-Z]:""")):
+			# On windows, when the URI parser encounters 'file:///c%3A/` instead of 
+			# parsing it into 'C:/', it does '/c:/', so check for that and remove the leading slash.
+			path = path.Substring(1)
+
+		return path
 
 	static def UriOf(fileName as string) as string:
 	"""
@@ -343,7 +351,7 @@ the first step out of that.
 	"""
 		references = List[of string]()
 		return references if string.IsNullOrEmpty(projectPath) or not File.Exists(projectPath)
-
+		
 		seen = HashSet[of string]()
 		own = OutputAssembly(projectPath)
 		if own is not null:
